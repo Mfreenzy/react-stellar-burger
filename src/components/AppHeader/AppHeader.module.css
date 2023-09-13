@@ -1,0 +1,48 @@
+.header {
+    box-sizing: border-box;
+    display: flex;
+    width: 1920px;
+    height: 88px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: #1c1c21;
+    margin: 0 auto;
+}
+
+.nav {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    align-items: center;
+}
+
+.link {
+    box-sizing: border-box;
+    display: flex;
+    column-gap: 8px;
+    cursor: pointer;
+    align-items: center;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+}
+
+.link_inactive {
+    composes: link;
+    color:  #8585ad;
+}
+
+
+.menuButton {
+    display: flex;
+    column-gap: 8px;
+    margin-right: 112px;
+}
+
+.palink { 
+    composes: link;
+    margin-left: 288px;
+    color:  #8585ad;
+}
+
