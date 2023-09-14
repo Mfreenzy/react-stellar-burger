@@ -12,30 +12,30 @@ Stellar Burger является конструктором для космобу
 
 Сделана пока только минимальная верстка сайте Stellar Burger согласно заданию спринта. 
 
-[https://www.figma.com/file/ocw9a6hNGeAejl4F3G9fp8/React-_-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-(3-%D0%BC%D0%B5%D1%81%D1%8F%D1%86%D0%B0)_external_link?node-id=253%3A1053&mode=dev] Ссылка на макет проекта в Figma.
+[https://tinyurl.com/3sfzz3xw] [Ссылка на макет проекта в Figma.]
 
-[https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_7.pdf] Ссылка на чек-лист проекта.
+[https://tinyurl.com/4uhb9yan] [Ссылка на чек-лист проекта.]
 
 
 # Этап "Промежуточный проект. CRA-заготовка и структура папок под компоненты"
 
 Проект состоит из следующих основных и под блоков(компонентов):
 
-App
-AppHeader
-BurgerConstructor
-    BurgerConstTotal
-    BurgerFullPrice
-BurgerIngredients
-    Card
-    CardList
-    IngredientCards
-    IngredientTabs
-CloseButton
-IngredientDetails
-Modal
-ModalOverlay
-OrderDetails
+* App
+* AppHeader
+* BurgerConstructor
+    + BurgerConstTotal
+    + BurgerFullPrice
+* BurgerIngredients
+    + Card
+    + CardList
+    + IngredientCards
+    + IngredientTabs
+* CloseButton
+* IngredientDetails
+* Modal
+* ModalOverlay
+* OrderDetails
 
 
 Структура папок.
