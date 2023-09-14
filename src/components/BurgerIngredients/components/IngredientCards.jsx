@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./ingredientCards.module.css";
 import IngredientsTabs from "./IngredientTabs";
 import CardList from "./CardList";
 import Modal from "../../Modal/Modal";
 import IngredientDetail from "../../IngredientDetails/IngredientDetail";
-
-
+import { ingredientPropType } from "../../../utils/prop-types";
 
 const IngredientCards = ({ingredients}) => {
-    const buns = ingredients.filter((item) => item.type === "bun");
-    const mains = ingredients.filter((item) => item.type === "main");
-    const sauces = ingredients.filter((item) => item.type === "sauce");
+    const buns = useMemo(() => ingredients.filter((item) => item.type === "bun"), [ingredients]);
+    const mains = useMemo(() => ingredients.filter((item) => item.type === "main"), [ingredients]);
+    const sauces = useMemo(() => ingredients.filter((item) => item.type === "sauce"), [ingredients]);
 
     const [test, setTest] = useState([]);
     const [visible, setVisible] = useState(false);
@@ -51,6 +50,7 @@ const IngredientCards = ({ingredients}) => {
     );
 };
 
+IngredientCards.propTypes = ingredientPropType
 
 
 export default IngredientCards;

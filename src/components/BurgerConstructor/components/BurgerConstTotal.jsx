@@ -3,6 +3,7 @@ import { CurrencyIcon, DeleteIcon, DragIcon } from "@ya.praktikum/react-develope
 import styles from "./BurgerConstTotal.module.css";
 import { data2 } from "../../../utils/data2";
 
+
 function BurgerConstTotal() {
     return (
             <ul className={`${styles.burgerConstTotal} custom-scroll`}>
@@ -23,6 +24,7 @@ function BurgerConstTotal() {
             </ul>
     );
 }
+
 
 
 export default BurgerConstTotal
