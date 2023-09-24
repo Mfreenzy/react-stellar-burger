@@ -1,17 +1,38 @@
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import AppHeader from "../../components/AppHeader/AppHeader";
+import { useCallback, useState } from "react";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import LoadIngredient from "./components/LoadIngredient";
 
 function App() {
-  return (
-    <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
-    </div>
-  );
+    const [ingredients, setIngredients] = useState([]);
+    const [error, setError] = useState(null);
+
+    const handleDataLoad = useCallback((data) => {
+        setIngredients(data);
+    }, []);
+
+    const handleError = useCallback((errorMessage) => {
+        setError(errorMessage);
+    }, []);
+
+    return (
+        <div className={styles.app}>
+            <AppHeader />
+            <div className={styles.main}>
+                <LoadIngredient onDataLoaded={handleDataLoad} onError={handleError} />
+                <div>
+                    {error && <p>{error}</p>}
+                    {!error && ingredients.length === 0 && <p>Ингредиенты не доступны</p>}
+                    {ingredients.length > 0 && <BurgerIngredients ingredients={ingredients} />}
+                </div>
+                <div>
+                    <BurgerConstructor ingredients={ingredients}/>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;
