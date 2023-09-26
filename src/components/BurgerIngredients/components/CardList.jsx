@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./CardList.module.css";
 import Card from "./Card";
 import PropTypes from "prop-types";
 
-function CardList({ data, test, setTest, handleOpenModal }) {
-    const [bun, setBun] = useState([]);
+function CardList({ data,  handleOpenModal }) {
+    
 
     return (
         <ul className={`${styles.cardList}`}>
             {data.map((item) => (
                 <React.Fragment key={item._id}>
-                    <Card item={item} test={test} setTest={setTest} bun={bun} setBun={setBun} onClick={() => handleOpenModal(item)} />
+                    <Card  item={item} onClick={() => handleOpenModal(item)} />
                 </React.Fragment>
             ))}
         </ul>
@@ -19,8 +19,7 @@ function CardList({ data, test, setTest, handleOpenModal }) {
 
 CardList.propTypes = {
     data: PropTypes.array.isRequired,
-    test: PropTypes.array.isRequired,
-    setTest: PropTypes.func.isRequired,
+    
     handleOpenModal: PropTypes.func.isRequired,
 };
 
