@@ -1,6 +1,7 @@
 import React from "react";
 import { CurrencyIcon, DeleteIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstTotal.module.css";
+import uuid from "react-uuid";
 
 
 function BurgerConstTotal({burgerInfill}) {
@@ -9,7 +10,7 @@ function BurgerConstTotal({burgerInfill}) {
     return (
             <ul className={`${styles.burgerConstTotal} custom-scroll`}>
                 {burgerInfill.map((item) => (
-                    <li key={item._id} className={`${styles.totalContainer} mt-4 mb-4`}>
+                    <li key={uuid()} className={`${styles.totalContainer} mt-4 mb-4`}>
                         <DragIcon />
                         <div className={`${styles.elementTotal} pt-4 pr-6 pb-4 pl-6`}>
                             <img src={item.image} alt="" className={`${styles.elementImage}`} />
