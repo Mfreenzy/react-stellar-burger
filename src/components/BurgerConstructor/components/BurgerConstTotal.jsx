@@ -9,8 +9,8 @@ function BurgerConstTotal({burgerInfill}) {
 
     return (
             <ul className={`${styles.burgerConstTotal} custom-scroll`}>
-                {burgerInfill.map((item) => (
-                    <li key={uuid()} className={`${styles.totalContainer} mt-4 mb-4`}>
+                {burgerInfill.map((item, i) => (
+                    <li key={i} className={`${styles.totalContainer} mt-4 mb-4`}>
                         <DragIcon />
                         <div className={`${styles.elementTotal} pt-4 pr-6 pb-4 pl-6`}>
                             <img src={item.image} alt="" className={`${styles.elementImage}`} />
