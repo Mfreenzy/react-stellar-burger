@@ -4,11 +4,15 @@ import styles from "./BurgerFullPrice.module.css";
 import icon from "../../../images/icon36x36.svg";
 import Modal from "../../Modal/Modal";
 import OrderDetails from "../../OrderDetails/OrderDetails";
-import { SelectedComponentContext } from "../../../services/BurgerConsctructorContext";
-
+import { useSelector, useDispatch } from "react-redux";
+import { clearCurrentIngredients } from "../../../services/actions/currentIngredientsActions";
+import { resetOrder } from "../../../services/actions/orderAction";
 
 function BurgerFullPrice() {
-    const {ingredientsConstructor} = React.useContext(SelectedComponentContext);
+    const ingredientsConstructor = useSelector(
+        (store) => store.currentIngredients
+      );
+    const dispatch = useDispatch()
     const burgerInfill = ingredientsConstructor.other;
     const burgerBun = ingredientsConstructor.bun;
     const [fullPriceModal, setFullPriceModal] = useState(false);
@@ -20,6 +24,8 @@ function BurgerFullPrice() {
 
     const handleCloseModal = () => {
         setFullPriceModal(false);
+        dispatch(clearCurrentIngredients())
+        dispatch(resetOrder())
     }
     
     const priceOfBurger = useMemo(() => {
