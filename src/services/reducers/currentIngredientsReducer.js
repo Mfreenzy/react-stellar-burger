@@ -3,6 +3,7 @@ import {
   ADD_CURRENT_INGREDIENT,
   REMOVE_CURRENT_INGREDIENT,
   CLEAR_CURRENT_INGREDIENTS,
+  MOVE_FILLING,
 } from "../actions/currentIngredientsActions";
 
 const initialState = { bun: null, other: [] };
@@ -32,6 +33,11 @@ const currentIngredientsReducer = (state = initialState, action) => {
         ...state,
         bun: null,
         other: [],
+      };
+    case MOVE_FILLING:
+      return {
+        ...state,
+        other: action.payload,
       };
     default:
       return state;
