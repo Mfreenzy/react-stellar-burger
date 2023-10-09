@@ -10,12 +10,23 @@ import {
   addCurrentBun,
   addCurrentIngredient,
 } from "../../../services/actions/currentIngredientsActions";
+import { useDrag } from "react-dnd";
 
 function Card({ item, onClick }) {
   const dispatch = useDispatch();
   const ingredientsConstructor = useSelector(
     (store) => store.currentIngredients
   );
+
+  const [, dragRef] = useDrag({
+    type: "ingredients",
+    item: item,
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging,
+    }),
+  });
+
+  // const opacity = isDrag ? 0.4 : 1
 
   const checkCount = (item) => {
     //устанавливаем счетчик как 0
@@ -57,31 +68,35 @@ function Card({ item, onClick }) {
   };
 
   return (
-    <li className={`${styles.listElement}`}>
-      {checkCount(item) !== 0 && (
-        <Counter count={checkCount(item)} size="default" />
-      )}
-      <img
-        className={`${styles.cardPhoto}  pl-4 pb-4`}
-        src={item.image}
-        alt={item.name}
-        onClick={() => handleClick(item)}
-      ></img>
-      <div className={`${styles.currencyContainer}`}>
-        <p
-          className={`${styles.cardsPrice} pt-2 pb-2 pr-4 text text_type_digits-default`}
-        >
-          {item.price}
-        </p>
-        <CurrencyIcon />
+    <>
+      <div ref={dragRef}>
+        <li className={`${styles.listElement}`}>
+          {checkCount(item) !== 0 && (
+            <Counter count={checkCount(item)} size="default" />
+          )}
+          <img
+            className={`${styles.cardPhoto}  pl-4 pb-4`}
+            src={item.image}
+            alt={item.name}
+            onClick={() => handleClick(item)}
+          ></img>
+          <div className={`${styles.currencyContainer}`}>
+            <p
+              className={`${styles.cardsPrice} pt-2 pb-2 pr-4 text text_type_digits-default`}
+            >
+              {item.price}
+            </p>
+            <CurrencyIcon />
+          </div>
+          <p
+            className={`${styles.cardDescription} text text_type_main-default`}
+            onClick={() => handlePopupClick(item)}
+          >
+            {item.name}
+          </p>
+        </li>
       </div>
-      <p
-        className={`${styles.cardDescription} text text_type_main-default`}
-        onClick={() => handlePopupClick(item)}
-      >
-        {item.name}
-      </p>
-    </li>
+    </>
   );
 }
 

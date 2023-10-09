@@ -5,6 +5,9 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/ingredientActions";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { addCurrentBun, addCurrentIngredient} from '../../services/actions/currentIngredientsActions'
 
 function App() {
   const dispatch = useDispatch();
@@ -13,7 +16,17 @@ function App() {
     dispatch(getBurgerIngredients());
   }, [dispatch]);
 
-  const {isLoading, ingredients, hasError} = useSelector((store) => store.allIngredients)
+  const handleDrop = (item) => {
+    if (item.type === "bun") {
+      dispatch(addCurrentBun(item))
+    } else {
+      dispatch(addCurrentIngredient(item))
+    }
+  };
+  
+  const { isLoading, ingredients, hasError } = useSelector(
+    (store) => store.allIngredients
+  );
 
   if (isLoading) {
     return <div className={`text text_type_main-default`}>Загрузка...</div>;
@@ -22,11 +35,12 @@ function App() {
       return (
         <div className={`text text_type_main-default`}>Произошла ошибка</div>
       );
-    } 
-      return (
-        <div className={styles.app}>
-          <AppHeader />
-          <div className={styles.main}>
+    }
+    return (
+      <div className={styles.app}>
+        <AppHeader />
+        <div className={styles.main}>
+          <DndProvider backend={HTML5Backend}>
             <div>
               {Array.isArray(ingredients) ? (
                 <BurgerIngredients ingredients={ingredients} />
@@ -35,12 +49,13 @@ function App() {
               )}
             </div>
             <div>
-              <BurgerConstructor />
+              <BurgerConstructor onDropHandler={handleDrop}/>
             </div>
-          </div>
+          </DndProvider>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 export default App;

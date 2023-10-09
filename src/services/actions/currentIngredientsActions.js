@@ -3,6 +3,7 @@ export const ADD_CURRENT_BUN = "ADD_CURRENT_BUN";
 export const ADD_CURRENT_INGREDIENT = "ADD_CURRENT_INGREDIENT";
 export const REMOVE_CURRENT_INGREDIENT = "REMOVE_CURRENT_INGREDIENT";
 export const CLEAR_CURRENT_INGREDIENTS = "CLEAR_CURRENT_INGREDIENTS";
+export const MOVE_FILLING = "MOVE_FILLING"
 
 export const addCurrentBun = (ingredient) => {
   return {
@@ -31,3 +32,7 @@ export const clearCurrentIngredients = () => {
     type: CLEAR_CURRENT_INGREDIENTS,
   };
 };
+
+export function moveFilling(ingredient) {
+  return {type: MOVE_FILLING, payload: ingredient}
+}
