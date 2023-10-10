@@ -18,11 +18,11 @@ function Card({ item, onClick }) {
     (store) => store.currentIngredients
   );
 
-  const [, dragRef] = useDrag({
+  const [isDragging, dragRef] = useDrag({
     type: "ingredients",
-    item: item,
+    item: () => item,
     collect: (monitor) => ({
-      isDrag: monitor.isDragging,
+      isDrag: monitor.isDragging(),
     }),
   });
 
@@ -52,10 +52,15 @@ function Card({ item, onClick }) {
   };
 
   const handleClick = () => {
+    if (isDragging) {
+      return;
+    }
+
     if (item.type === "bun" && ingredientsConstructor.bun?._id === item._id) {
       console.log("Компонент типа bun уже выбран");
       return;
     }
+
     if (item.type === "bun") {
       dispatch(addCurrentBun(item));
     } else {

@@ -3,7 +3,6 @@
     justify-content: flex-end;
     margin-right: 20px;
     align-items: center;
-
 }
 .fullPrice {
     margin-right: 40px;
@@ -11,4 +10,3 @@
     column-gap: 8px;
     align-items: center;
 }
-

@@ -13,17 +13,15 @@ function BurgerConstTotal() {
 
   const dispatch = useDispatch();
   const moveCard = React.useCallback((dragIndex, hoverIndex, other) => {
-
     const newOther = update(other, {
       $splice: [
         [dragIndex, 1],
         [hoverIndex, 0, other[dragIndex]],
       ],
-    })
+    });
 
-    dispatch(moveFilling(newOther)
-    )
-  }, [])
+    dispatch(moveFilling(newOther));
+  }, []);
 
   return (
     <ul className={`${styles.burgerConstTotal} custom-scroll`}>

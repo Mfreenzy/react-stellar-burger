@@ -26,7 +26,11 @@ const BurgerConstructor = ({onDropHandler}) => {
 
   const [{ isOver, canDrop }, dropRef] = useDrop({
     accept: "ingredients",
-    drop(item) {
+    drop(item, monitor) {
+      if (!monitor.isOver({ shallow: true })) {
+        return;
+      }
+  
       console.log(item);
       onDropHandler(item);
     },
