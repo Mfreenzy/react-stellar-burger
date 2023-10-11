@@ -22,7 +22,6 @@ export const ingredientDetailPropType = {
   data: ingredientPropTypes.isRequired,
 };
 
-
 export const cardsPropType = {
   item: ingredientPropTypes.isRequired
 }
