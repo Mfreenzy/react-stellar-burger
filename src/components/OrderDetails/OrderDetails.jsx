@@ -19,43 +19,6 @@ const OrderDetails = () => {
   }
   const componentsID = getListIdIngredients();
 
-  // useEffect(() => {
-  //   const componentsID = getListIdIngredients();
-  //   const postData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         "https://norma.nomoreparties.space/api/orders",
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify({
-  //             ingredients: componentsID,
-  //           }),
-  //         }
-  //       );
-
-  //       if (!response.ok) {
-  //         throw new Error("Произошла ошибка при отправке заказа");
-  //       }
-
-  //       const data = await response.json();
-  //       setOrder(data.order.number);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
-
-  //   postData();
-  // }, []);
-
-  // if (error) {
-  //   return (
-  //     <p className={`${styles.error} text text_type_main-default`}>{error}</p>
-  //   );
-  // }
-
   const dispatch = useDispatch();
 
   React.useEffect(() => {
