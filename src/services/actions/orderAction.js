@@ -1,3 +1,5 @@
+import { POST_ORDERS_ENDPOINT } from "../../utils/BaseURL";
+
 export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
 export const POST_ORDER_FAILURE = "POST_ORDER_FAILURE";
@@ -32,7 +34,7 @@ export function getBurgerOrder(data) {
   console.log(data);
   return function (dispatch) {
     dispatch(postOrderRequest());
-    fetch("https://norma.nomoreparties.space/api/orders", {
+    fetch(POST_ORDERS_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

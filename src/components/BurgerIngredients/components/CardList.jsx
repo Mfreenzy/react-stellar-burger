@@ -3,7 +3,7 @@ import styles from "./CardList.module.css";
 import Card from "./Card";
 import PropTypes from "prop-types";
 
-const CardList = React.forwardRef(({ name, data, id }, ref) => {
+const CardList = React.forwardRef(({ name, data, id, handleOpenModal}, ref, ) => {
   return (
     <div className={styles.typePart}>
       <p ref={ref} id={id} className="text text_type_main-medium">
@@ -12,7 +12,7 @@ const CardList = React.forwardRef(({ name, data, id }, ref) => {
       <ul className={`${styles.cardList}`}>
         {data.map((item) => (
           <React.Fragment key={item._id}>
-            <Card item={item} key={item._id} />
+            <Card item={item} key={item._id} onClick={() => handleOpenModal(item)}/>
           </React.Fragment>
         ))}
       </ul>

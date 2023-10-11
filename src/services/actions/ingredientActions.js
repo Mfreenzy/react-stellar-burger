@@ -1,3 +1,5 @@
+import { GET_INGREDIENTS_ENDPOINT } from "../../utils/BaseURL";
+
 export const FETCH_INGREDIENTS_REQUEST = "FETCH_INGREDIENTS_REQUEST";
 export const FETCH_INGREDIENTS_SUCCESS = "FETCH_INGREDIENTS_SUCCESS";
 export const FETCH_INGREDIENTS_FAILURE = "FETCH_INGREDIENTS_FAILURE";
@@ -24,7 +26,7 @@ export function fetchIngredientsRequest() {
 export function getBurgerIngredients() {
   return function (dispatch) {
     dispatch(fetchIngredientsRequest());
-    fetch("https://norma.nomoreparties.space/api/ingredients")
+    fetch(GET_INGREDIENTS_ENDPOINT)
       .then((res) => {
         if (res.ok) {
           return res.json();
