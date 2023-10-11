@@ -1,32 +1,20 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import styles from "./ingredientCards.module.css";
-import IngredientsTabs from "./IngredientTabs";
+// import IngredientsTabs from "./IngredientTabs";
 import CardList from "./CardList";
 import Modal from "../../Modal/Modal";
 import IngredientDetail from "../../IngredientDetails/IngredientDetail";
 import { ingredientPropType } from "../../../utils/prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setIngredientDetails,
   clearIngredientDetails,
 } from "../../../services/actions/currentIngredientActions";
+import stylesTab from "../components/IngredientTabs.module.css";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const IngredientCards = ({ ingredients }) => {
-  const buns = useMemo(
-    () => ingredients.filter((item) => item.type === "bun"),
-    [ingredients]
-  );
-  const mains = useMemo(
-    () => ingredients.filter((item) => item.type === "main"),
-    [ingredients]
-  );
-  const sauces = useMemo(
-    () => ingredients.filter((item) => item.type === "sauce"),
-    [ingredients]
-  );
-
+const IngredientCards = () => {
   const [visible, setVisible] = useState(false);
-
   const dispatch = useDispatch();
 
   const handleOpenModal = (ingredient) => {
@@ -39,21 +27,111 @@ const IngredientCards = ({ ingredients }) => {
     setVisible(false);
   };
 
+  const setTab = (tab) => {
+    setCurrentTab(tab);
+    const element = document.getElementById(tab);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const { ingredients } = useSelector((store) => store.allIngredients);
+  const filtered = (type) => {
+    return ingredients.filter((item) => item.type === type);
+  };
+
+  const [filteredIngredients, setFilteredIngredients] = React.useState({
+    buns: [],
+    sauces: [],
+    mains: [],
+  });
+
+  React.useMemo(
+    () =>
+      setFilteredIngredients({
+        buns: filtered("bun"),
+        sauces: filtered("sauce"),
+        mains: filtered("main"),
+      }),
+    [ingredients]
+  );
+
+  const [currentTab, setCurrentTab] = React.useState("buns");
+  const tabsRef = React.useRef();
+  const mainsRef = React.useRef();
+  const bunsRef = React.useRef();
+  const saucesRef = React.useRef();
+
+  function handleScrollList() {
+    const tabsBottom = tabsRef.current?.getBoundingClientRect().bottom;
+    const bunsTop = bunsRef.current?.getBoundingClientRect().top;
+    const saucesTop = saucesRef.current?.getBoundingClientRect().top;
+    const mainsTop = mainsRef.current?.getBoundingClientRect().top;
+
+    if (!tabsBottom || !bunsTop || !saucesTop || !mainsTop) {
+      return;
+    }
+
+    const TabsWithBottomPadding = tabsBottom + 40;
+    const bunsDelta = Math.abs(bunsTop - TabsWithBottomPadding);
+    const saucesDelta = Math.abs(saucesTop - TabsWithBottomPadding);
+    const mainsDelta = Math.abs(mainsTop - TabsWithBottomPadding);
+    const min = Math.min(bunsDelta, saucesDelta, mainsDelta);
+    const tab =
+      min === bunsDelta ? "buns" : min === saucesDelta ? "sauces" : "main";
+    if (tab !== currentTab) {
+      setCurrentTab(tab);
+    }
+  }
+
   return (
     <>
-      <IngredientsTabs />
-      <div className={`${styles.ingredientsScroll} custom-scroll`}>
-        <div id="buns" className={`${styles.cardContainer}`}>
+      <div className={`${stylesTab.ingredientsContainer} mb-10`} ref={tabsRef}>
+        <h2 className={`text text_type_main-large pt-10 pb-5`}>
+          Соберите бургер
+        </h2>
+        <div className={`${stylesTab.tabsContainer}`}>
+          <Tab value="buns" active={currentTab === "buns"} onClick={setTab}>
+            Булочки
+          </Tab>
+          <Tab value="sauces" active={currentTab === "sauces"} onClick={setTab}>
+            Соусы
+          </Tab>
+          <Tab value="main" active={currentTab === "main"} onClick={setTab}>
+            Начинки
+          </Tab>
+        </div>
+      </div>
+      <div
+        className={`${styles.ingredientsScroll} custom-scroll`}
+        onScroll={handleScrollList}
+      >
+        <div className={`${styles.cardContainer}`}>
           <h2 className={`text text_type_main-medium pb-6`}>Булочки</h2>
-          <CardList data={buns} handleOpenModal={handleOpenModal} />
+          <CardList
+            data={filteredIngredients.buns}
+            ref={bunsRef}
+            id="buns"
+            handleOpenModal={handleOpenModal}
+          />
         </div>
-        <div id="sauces" className={`${styles.cardContainer}`}>
+        <div className={`${styles.cardContainer}`}>
           <h2 className={`text text_type_main-medium pt-10 pb-6`}>Соусы</h2>
-          <CardList data={sauces} handleOpenModal={handleOpenModal} />
+          <CardList
+            data={filteredIngredients.sauces}
+            ref={saucesRef}
+            id="sauces"
+            handleOpenModal={handleOpenModal}
+          />
         </div>
-        <div id="main" className={`${styles.cardContainer}`}>
+        <div className={`${styles.cardContainer}`}>
           <h2 className={`text text_type_main-medium pt-10 pb-6`}>Начинки</h2>
-          <CardList data={mains} handleOpenModal={handleOpenModal} />
+          <CardList
+            data={filteredIngredients.mains}
+            ref={mainsRef}
+            id="main"
+            handleOpenModal={handleOpenModal}
+          />
         </div>
       </div>
       {visible && (

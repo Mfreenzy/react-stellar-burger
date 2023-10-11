@@ -3,17 +3,22 @@ import styles from "./CardList.module.css";
 import Card from "./Card";
 import PropTypes from "prop-types";
 
-function CardList({ data, handleOpenModal }) {
+const CardList = React.forwardRef(({ name, data, id }, ref) => {
   return (
-    <ul className={`${styles.cardList}`}>
-      {data.map((item) => (
-        <React.Fragment key={item._id}>
-          <Card item={item} onClick={() => handleOpenModal(item)} />
-        </React.Fragment>
-      ))}
-    </ul>
+    <div className={styles.typePart}>
+      <p ref={ref} id={id} className="text text_type_main-medium">
+        {name}
+      </p>
+      <ul className={`${styles.cardList}`}>
+        {data.map((item) => (
+          <React.Fragment key={item._id}>
+            <Card item={item} key={item._id} />
+          </React.Fragment>
+        ))}
+      </ul>
+    </div>
   );
-}
+});
 
 CardList.propTypes = {
   data: PropTypes.array.isRequired,
