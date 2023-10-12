@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import styles from "./ingredientCards.module.css";
-// import IngredientsTabs from "./IngredientTabs";
 import CardList from "./CardList";
 import Modal from "../../Modal/Modal";
 import IngredientDetail from "../../IngredientDetails/IngredientDetail";
-import { ingredientPropType } from "../../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setIngredientDetails,
@@ -135,14 +133,12 @@ const IngredientCards = () => {
         </div>
       </div>
       {visible && (
-        <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
+        <Modal header={"Детали ингредиента"} closeModal={handleCloseModal}>
           <IngredientDetail></IngredientDetail>
         </Modal>
       )}
     </>
   );
 };
-
-IngredientCards.propTypes = ingredientPropType;
 
 export default IngredientCards;

@@ -75,7 +75,7 @@ function Card({ item, onClick }) {
   return (
     <>
       <div ref={dragRef}>
-        <li className={`${styles.listElement}`}>
+        <li className={`${styles.listElement}`} onClick={() => handleClick(item)}>
           {checkCount(item) !== 0 && (
             <Counter count={checkCount(item)} size="default" />
           )}
@@ -83,7 +83,7 @@ function Card({ item, onClick }) {
             className={`${styles.cardPhoto}  pl-4 pb-4`}
             src={item.image}
             alt={item.name}
-            onClick={() => handleClick(item)}
+            onClick={() => handlePopupClick(item)}
           ></img>
           <div className={`${styles.currencyContainer}`}>
             <p
@@ -95,7 +95,6 @@ function Card({ item, onClick }) {
           </div>
           <p
             className={`${styles.cardDescription} text text_type_main-default`}
-            onClick={() => handlePopupClick(item)}
           >
             {item.name}
           </p>

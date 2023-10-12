@@ -1,4 +1,5 @@
 import { GET_INGREDIENTS_ENDPOINT } from "../../utils/BaseURL";
+import { checkResponse } from "../../utils/BaseURL";
 
 export const FETCH_INGREDIENTS_REQUEST = "FETCH_INGREDIENTS_REQUEST";
 export const FETCH_INGREDIENTS_SUCCESS = "FETCH_INGREDIENTS_SUCCESS";
@@ -27,13 +28,7 @@ export function getBurgerIngredients() {
   return function (dispatch) {
     dispatch(fetchIngredientsRequest());
     fetch(GET_INGREDIENTS_ENDPOINT)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error("Request failed");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((data) => {
         console.log(data);
         dispatch(fetchIngredientsSuccess(data.data));

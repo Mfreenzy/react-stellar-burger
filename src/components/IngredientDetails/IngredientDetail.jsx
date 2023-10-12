@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 
 function IngredientDetail() {
 
-    const Details = useSelector((store) => store.currentIngredient)
-    const data = Details.Details
+    const details = useSelector((store) => store.currentIngredient)
+    const data = details.details
     if (!data) return null 
     return (
         <>
@@ -28,6 +28,5 @@ function IngredientDetail() {
     )
 }
 
-// IngredientDetail.propTypes = ingredientDetailPropType
 
 export default IngredientDetail

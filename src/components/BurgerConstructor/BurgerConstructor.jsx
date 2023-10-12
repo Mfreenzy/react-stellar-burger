@@ -3,9 +3,9 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from "./BurgerCounstructor.module.css";
 import BurgerConstTotal from "./components/BurgerConstTotal";
 import BurgerFullPrice from "./components/BurgerFullPrice";
-import { ingredientPropType } from "../../utils/prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
+import PropTypes from "prop-types";
 
 const BurgerConstructor = ({onDropHandler}) => {
   const ingredientsConstructor = useSelector(
@@ -76,10 +76,7 @@ const BurgerConstructor = ({onDropHandler}) => {
   );
 };
 
-BurgerConstructor.propTypes = ingredientPropType;
+BurgerConstructor.propTypes = { onDropHandler: PropTypes.func.isRequired };
 
-BurgerConstructor.defaultProps = {
-  ingredients: [],
-};
 
 export default BurgerConstructor;

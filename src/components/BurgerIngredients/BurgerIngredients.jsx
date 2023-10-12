@@ -1,17 +1,13 @@
 import React from "react";
 import IngredientCards from "./components/IngredientCards";
-import PropTypes from "prop-types";
 
-function BurgerIngredients({ ingredients }) {
+function BurgerIngredients() {
   return (
     <section>
-      <IngredientCards ingredients={ingredients} />
+      <IngredientCards />
     </section>
   );
 }
 
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.object),
-};
 
 export default React.memo(BurgerIngredients);

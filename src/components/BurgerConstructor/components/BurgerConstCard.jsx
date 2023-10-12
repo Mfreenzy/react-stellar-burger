@@ -8,6 +8,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { removeCurrentIngredient } from "../../../services/actions/currentIngredientsActions";
 import { useDrag, useDrop } from "react-dnd";
+import { checkString, checklNumber, optionalObject } from "../../../utils/prop-types";
+import PropTypes from "prop-types";
+
 
 export function BurgerConstCard({ moveCard, index, id, item }) {
   const ingredientsConstructor = useSelector(
@@ -105,3 +108,10 @@ export function BurgerConstCard({ moveCard, index, id, item }) {
     </div>
   );
 }
+
+BurgerConstCard.propTypes = {
+  moveCard: PropTypes.func.isRequired,
+  index: checklNumber,
+  id: checkString,
+  item: optionalObject,
+};

@@ -42,11 +42,7 @@ function App() {
         <div className={styles.main}>
           <DndProvider backend={HTML5Backend}>
             <div>
-              {Array.isArray(ingredients) ? (
                 <BurgerIngredients ingredients={ingredients} />
-              ) : (
-                <div className={`text text_type_main-default`}>Нет данных</div>
-              )}
             </div>
             <div>
               <BurgerConstructor onDropHandler={handleDrop}/>

@@ -4,7 +4,7 @@ import {
 } from "../actions/currentIngredientActions";
 
 const initialState = {
-  Details: null,
+  details: null,
 };
 
 function ingredientDetailsReducer(state = initialState, action) {
@@ -12,12 +12,12 @@ function ingredientDetailsReducer(state = initialState, action) {
     case SET_INGREDIENT_DETAILS:
       return {
         ...state,
-        Details: action.payload,
+        details: action.payload,
       };
     case CLEAR_INGREDIENT_DETAILS:
       return {
         ...state,
-        Details: null,
+        details: null,
       };
     default:
       return state;

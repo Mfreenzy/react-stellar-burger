@@ -1,4 +1,5 @@
 import { POST_ORDERS_ENDPOINT } from "../../utils/BaseURL";
+import { checkResponse } from "../../utils/BaseURL";
 
 export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
@@ -41,13 +42,7 @@ export function getBurgerOrder(data) {
       },
       body: JSON.stringify({ ingredients: data }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error("Request failed");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((data) => {
         const orderNumber = data.order.number; // Получаем только номер заказа
         dispatch(postOrderSuccess(orderNumber));
