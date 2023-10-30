@@ -1,17 +1,13 @@
 import React from "react";
 import IngredientCards from "./components/IngredientCards";
-import { ingredientPropType } from "../../utils/prop-types";
 
-
-
-function BurgerIngredients({ingredients}) {
-    return (
-        <section>
-            <IngredientCards ingredients={ingredients} />
-        </section>
-    )
+function BurgerIngredients() {
+  return (
+    <section>
+      <IngredientCards />
+    </section>
+  );
 }
 
-BurgerIngredients.propTypes = ingredientPropType
 
-export default React.memo(BurgerIngredients)
+export default React.memo(BurgerIngredients);

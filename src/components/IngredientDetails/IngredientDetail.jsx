@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./IngredientDetail.module.css";
-import { ingredientDetailPropType } from "../../utils/prop-types";
+import { useSelector } from "react-redux";
 
 
-function IngredientDetail({data}) {
+function IngredientDetail() {
+
+    const details = useSelector((store) => store.currentIngredient)
+    const data = details.details
     if (!data) return null 
     return (
         <>
@@ -25,6 +28,5 @@ function IngredientDetail({data}) {
     )
 }
 
-IngredientDetail.propTypes = ingredientDetailPropType
 
 export default IngredientDetail
