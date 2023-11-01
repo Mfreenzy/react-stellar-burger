@@ -12,61 +12,24 @@ import {
   addCurrentIngredient,
 } from "../../services/actions/currentIngredientsActions";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
-import { LoginPage } from "../../pages/Autorisation/Login";
-import { ForgotPassword } from "../../pages/PasswordManipulation/ForgotPassword";
 import { Register } from "../../pages/Registration";
+import { Login } from "../../pages/Login";
+import { Home } from "../../pages/Home";
 
 function App() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
 
-  React.useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
-
-  const handleDrop = (item) => {
-    if (item.type === "bun") {
-      dispatch(addCurrentBun(item));
-    } else {
-      dispatch(addCurrentIngredient(item));
-    }
-  };
-
-  const { isLoading, ingredients, hasError } = useSelector(
-    (store) => store.allIngredients
+  return (
+    <div className={styles.app}>
+      <AppHeader />
+      <Routes location={background || location}>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </div>
   );
-
-  if (isLoading) {
-    return <div className={`text text_type_main-default`}>Загрузка...</div>;
-  } else {
-    if (hasError) {
-      return (
-        <div className={`text text_type_main-default`}>Произошла ошибка</div>
-      );
-    }
-    return (
-      <div className={styles.app}>
-        <AppHeader />
-        {/* <div className={styles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <div>
-              <BurgerIngredients ingredients={ingredients} />
-            </div>
-            <div>
-              <BurgerConstructor onDropHandler={handleDrop} />
-            </div>
-          </DndProvider>
-        </div> */}
-        <Routes location={background || location}>
-          <Route path="/login" element={<LoginPage />}/>
-          <Route path="/forgot-password" element={<ForgotPassword />}/>
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </div>
-    );
-  }
 }
 
 export default App;

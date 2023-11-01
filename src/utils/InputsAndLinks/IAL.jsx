@@ -33,7 +33,7 @@ export const Links = {
     //3. Всё-таки забыли пароль
     forgotPassword: <FormFooterLinks key="forgotPassword" infoText="Забыли пароль?"><Link to="/forgot-password" className={`${styles.link}`}>Восстановить пароль</Link></FormFooterLinks>,
     //4. Новый пользователь
-    newUser: <FormFooterLinks key="newUser" infoText="Вы - новый пользователь?"><Link to="/forgot-password" className={`${styles.link}`}>Зарегистрироваться</Link></FormFooterLinks>
+    newUser: <FormFooterLinks key="newUser" infoText="Вы - новый пользователь?"><Link to="/register" className={`${styles.link}`}>Зарегистрироваться</Link></FormFooterLinks>
 }
 
 //Кнопка
