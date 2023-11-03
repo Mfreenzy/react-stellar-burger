@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
 import React from "react";
 import AppHeader from "../../components/AppHeader/AppHeader";
-import { Route, Routes, useNavigate, useLocation, BrowserRouter } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { Register } from "../../pages/Registration";
 import { Login } from "../../pages/Login";
 import { Home } from "../../pages/Home";
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <BrowserRouter>
+      
       <Routes location={background || location}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -23,7 +23,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
-      </BrowserRouter>
+    
     </div>
   );
 }
