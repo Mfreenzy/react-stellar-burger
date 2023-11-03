@@ -1,20 +1,12 @@
 import styles from "./app.module.css";
 import React from "react";
 import AppHeader from "../../components/AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { useDispatch, useSelector } from "react-redux";
-import { getBurgerIngredients } from "../../services/actions/ingredientActions";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import {
-  addCurrentBun,
-  addCurrentIngredient,
-} from "../../services/actions/currentIngredientsActions";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { Register } from "../../pages/Registration";
 import { Login } from "../../pages/Login";
 import { Home } from "../../pages/Home";
+import { ForgotPassword } from "../../pages/ForgotPassword";
+import { ResetPassword } from "../../pages/ResetPassword";
 
 function App() {
   const location = useLocation();
@@ -27,6 +19,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </div>
   );

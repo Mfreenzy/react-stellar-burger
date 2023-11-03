@@ -22,6 +22,7 @@ export const Inputs = {
     name: <FormInputName placeholder="Имя пользователя" key="name" name="name" />,
     //6. Ввод E-mail, для восстановления пароля, получения проверочного кода. 
     specifyEmail: <FormInputText placeholder="Введите E-mail" key="specifyEmail" name="specifyEmail" />
+    
 }
 
 //Все типы подвальных ссылок, используемых в работе
