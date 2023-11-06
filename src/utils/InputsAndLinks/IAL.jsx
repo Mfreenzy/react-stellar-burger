@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { FormFooterLinks } from "../../components/FormContainer/FormContainerLinks/FormFooterLinks";
 import styles from "../../components/FormContainer/FormContainer.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FormInputToken } from "../../components/FormContainer/FormContainerInputs/FormInputToken";
 
 //Все типы инпутов, используемых в проекте
 export const Inputs = {
@@ -17,11 +18,11 @@ export const Inputs = {
     //3. Новый пароль при восстановлении
     newPassword: <FormInputPassword placeholder="Введите новый пароль" key="newPassword" name="newPassword" />,
     //4. Проверочный код, полученный на E-mail, указанный при регистрации
-    verifyCode: <FormInputText placeholder="Введите проверочный код из письма" key="verifyCode" name="verifyCode" />,
+    token: <FormInputToken placeholder="Введите проверочный код из письма" key="token" name="token" />,
     //5. Имя пользователя
     name: <FormInputName placeholder="Имя пользователя" key="name" name="name" />,
     //6. Ввод E-mail, для восстановления пароля, получения проверочного кода. 
-    specifyEmail: <FormInputText placeholder="Введите E-mail" key="specifyEmail" name="specifyEmail" />
+    specifyEmail: <FormInputEmail placeholder="Введите E-mail" key="specifyEmail" name="specifyEmail" />
     
 }
 

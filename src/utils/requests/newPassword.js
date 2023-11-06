@@ -1,25 +1,24 @@
-import { POST_PASSWORD_RESET_ENDPOINT } from "../BaseURL";
+import { POST_RESET_ENDPOINT } from "../BaseURL";
 import { checkResponse } from "../BaseURL";
 
-export const resetPassword = (email) => {
-
-    return fetch(POST_PASSWORD_RESET_ENDPOINT, {
+export const resetPassword = (newPassword, token) => {
+    return fetch(POST_RESET_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "email": email,
+        "password": newPassword,
+        "token": token
       })
     })
       .then(res => checkResponse(res));
   };
   
-  export function postApiResetPassword(email) {
-    resetPassword(email)
+  export function postApiReset(newPassword, token) {
+    resetPassword(newPassword, token)
       .then(res => {
         console.log(res);
-        localStorage.setItem('resetPasswordFlag', true);
       })
       .catch((err) => {
         console.log(err);

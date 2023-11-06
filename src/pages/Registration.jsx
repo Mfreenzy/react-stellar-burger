@@ -20,8 +20,7 @@ export function Register() {
 
   function onClick(evt) {
     evt.preventDefault();
-
-    /*   navigate('/login', {replace: false});*/
+    navigate('/login', {replace: false});
     postApiRegister(name, pass, email);
     dispatch(login());
   }

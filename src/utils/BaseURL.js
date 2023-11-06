@@ -15,6 +15,7 @@ export const POST_TOKEN_ENDPOINT = `${BASE_URL}/auth/token`;
 //функция checkResponse
 export function checkResponse(res) {
     if (res.ok) {
+        console.log(res.ok)
         return res.json();
       } else {
         throw new Error("Request failed");
