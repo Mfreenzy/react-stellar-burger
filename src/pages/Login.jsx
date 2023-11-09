@@ -2,13 +2,20 @@ import React from "react";
 import { navigateButton, Inputs, Links } from "../utils/InputsAndLinks/IAL";
 import { FormContainerOther } from "../components/FormContainer/FormContainer";
 import { useNavigate } from "react-router-dom";
+import { selectedEmail, selectedPassword } from "../services/selectors/inputsSelectors";
+import { useSelector } from "react-redux";
+import { Login } from "../utils/api";
 
-export function Login() {
+export function Log() {
 
+    const email = useSelector(selectedEmail);
+    const pass = useSelector(selectedPassword);
     const navigate = useNavigate();
     
   
-    function onClick() {
+    function onClick(evt) {
+      evt.preventDefault()
+      Login(email,pass)
       navigate('/', {replace: false});
     }
   

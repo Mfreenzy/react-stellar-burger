@@ -13,8 +13,8 @@ const login = () =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
-        accessToken: "test-token",
-        refreshToken: "test-refresh-token",
+        accessToken: localStorage.getItem("accessToken"),
+        refreshToken: localStorage.getItem("refreshToken"),
         user: {},
       });
     }, 1000);

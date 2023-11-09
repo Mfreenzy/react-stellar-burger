@@ -1,0 +1,35 @@
+.profileNavigationLinks {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 180px;
+}
+
+.links {
+    text-decoration: none;
+    padding: 20px 0;
+}
+
+.exitButton {
+    border: none;
+    background-color: transparent;
+    padding: 20px 0;
+    cursor: pointer;
+}
+
+.info {
+    opacity: 0.4;
+    color: var(--text-inactive-color);
+    margin-top: 60px;
+}
+
+.active {
+    color: red
+}
+
+.container {
+    display: flex;
+    margin: 120px 0 0 135px;
+    gap: 60px;
+}

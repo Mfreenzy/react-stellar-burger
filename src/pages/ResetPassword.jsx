@@ -3,7 +3,7 @@ import { navigateButton, Inputs, Links } from "../utils/InputsAndLinks/IAL";
 import { FormContainerOther } from "../components/FormContainer/FormContainer";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { postApiReset } from "../utils/requests/newPassword";
+import { postApiReset } from "../utils/api";
 
 
 export function ResetPassword() {
