@@ -15,10 +15,15 @@ export const PROFILE_ENDPOINT =`${BASE_URL}/auth/user`
 
 //функция checkResponse
 export function checkResponse(res) {
-    if (res.ok) {
-        console.log(res.ok)
-        return res.json();
-      } else {
-        throw new Error("Request failed");
-      }
+  if (res.ok) {
+    return res.json();
+  } else {
+    return res.json()
+      .then(errorData => {
+        throw new Error(`Request failed with status ${res.status}: ${errorData.message}`);
+      })
+      .catch(() => {
+        throw new Error(`Request failed with status ${res.status}`);
+      });
+  }
 }
