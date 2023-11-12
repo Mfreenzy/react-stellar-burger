@@ -7,8 +7,6 @@ import { POST_RESET_ENDPOINT } from "./BaseURL";
 import { setUser } from "../services/actions/userActions";
 import { fetchWithRefresh } from "./reset-api";
 
-
-
 export const Register = (name, pass, email) => {
   return fetch(POST_REGISTER_ENDPOINT, {
     method: "POST",
@@ -21,9 +19,8 @@ export const Register = (name, pass, email) => {
       name: name,
     }),
   })
+    .then((res) => checkResponse(res))
     .then((res) => {
-      // Проверка ответа
-      checkResponse(res);
       // Сохраняем accessToken и refreshToken в localStorage
       localStorage.setItem("accessToken", res.accessToken);
       localStorage.setItem("refreshToken", res.refreshToken);
@@ -62,7 +59,6 @@ export const Login = (email, pass) => {
       );
     });
 };
-
 
 //3. Запрос Logout
 
