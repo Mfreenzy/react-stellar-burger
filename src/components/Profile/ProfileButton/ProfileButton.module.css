@@ -1,35 +1,35 @@
-.profileNavigationLinks {
-    width: 320px;
+.profileSection {
+    width: 100%;
+    max-width: 1280px;
     display: flex;
+    flex-direction: row;
+}
+
+.profilePanel {
+    max-width: 320px;
+    padding-left: 20px;
+}
+
+.profileUl {
+    list-style: none;
+    margin: 0;
+    padding: 120px 0 80px 0;
+}
+
+.defaultNavLink {
+    display: flex;
+    line-height: 64px;
     flex-direction: column;
-    align-items: start;
-    margin-top: 180px;
-}
-
-.links {
+    justify-content: center;
     text-decoration: none;
-    padding: 20px 0;
-}
-
-.exitButton {
-    border: none;
-    background-color: transparent;
-    padding: 20px 0;
-    cursor: pointer;
-}
-
-.info {
-    opacity: 0.4;
-    color: var(--text-inactive-color);
-    margin-top: 60px;
+    opacity: 1;
 }
 
 .active {
-    color: red
+    color: inherit;
 }
 
-.container {
-    display: flex;
-    margin: 120px 0 0 135px;
-    gap: 60px;
+.defaultNavLink:hover {
+    opacity: 0.8;
 }
+

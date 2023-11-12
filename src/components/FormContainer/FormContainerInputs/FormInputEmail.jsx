@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectedEmail } from "../../../services/selectors/inputsSelectors";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { addEmail } from "../../../services/actions/inputsActions";
+import PropTypes from "prop-types";
 
 export function FormInputEmail({placeholder = "E-mail"}) {
 
-    const emailValue = useSelector(selectedEmail)
     const dispatch = useDispatch();
     const inputRef = React.useRef(null)
+    const emailValue = useSelector(selectedEmail) ?? '';
   
     return (
       <Input
@@ -24,3 +25,7 @@ export function FormInputEmail({placeholder = "E-mail"}) {
       />
     )
   }
+
+  FormInputEmail.propTypes = {
+    placeholder: PropTypes.string.isRequired,
+  };

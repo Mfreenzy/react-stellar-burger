@@ -55,3 +55,21 @@ export function FormContainerOther({header, inputs, links, button}) {
       </section>
     )
   }
+
+  export function FormContainerUser({inputs, button, handleSubmit, handleReset}) {
+
+    return (
+      <section className={`${styles.sectionUser}`}>
+        <form onSubmit={handleSubmit} onReset={handleReset}>
+          <fieldset className={styles.formFieldset}>
+            <div className={`${styles.formInputs}`}>
+              {[...inputs]}
+            </div>
+            <div className={`${styles.buttonExtra}`}>
+              {button}
+            </div>
+          </fieldset>
+        </form>
+      </section>
+    )
+  }

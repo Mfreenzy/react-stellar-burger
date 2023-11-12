@@ -3,6 +3,8 @@ import { useDispatch,useSelector } from "react-redux";
 import { addPassword } from "../../../services/actions/inputsActions";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { selectedPassword } from "../../../services/selectors/inputsSelectors";
+import PropTypes from "prop-types";
+
 
 export function FormInputPassword({placeholder = 'Пароль'}) {
 
@@ -39,3 +41,7 @@ export function FormInputPassword({placeholder = 'Пароль'}) {
       />
     )
   }
+
+FormInputPassword.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+};

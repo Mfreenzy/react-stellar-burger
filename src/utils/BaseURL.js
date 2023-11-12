@@ -10,6 +10,7 @@ export const POST_REGISTER_ENDPOINT = `${BASE_URL}/auth/register`;
 export const POST_LOGIN_ENDPOINT = `${BASE_URL}/auth/login`;
 export const POST_LOGOUT_ENDPOINT = `${BASE_URL}/auth/logout`;
 export const POST_TOKEN_ENDPOINT = `${BASE_URL}/auth/token`;
+export const PROFILE_ENDPOINT =`${BASE_URL}/auth/user`
 
 
 //функция checkResponse

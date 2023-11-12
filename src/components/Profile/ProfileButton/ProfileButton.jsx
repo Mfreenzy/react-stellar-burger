@@ -1,25 +1,67 @@
-import React from 'react';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { getUser, logout } from "../../../utils/api";
+import { NavLink, Outlet, useNavigate, useMatch } from "react-router-dom";
 import styles from "../ProfileButton/ProfileButton.module.css";
-import { useMatch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../utils/api';
-import { Link } from 'react-router-dom';
 
 export function ProfileButton() {
-    const dispatch = useDispatch();
-    const isProfileActive = useMatch('/profile');
-    const isProfileOrderActive = useMatch('/profile/orders');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isProfileActive = useMatch("/profile");
+  const isProfileOrderActive = useMatch("/profile/orders");
 
-    const handleLogout = () => {
-        dispatch(logout())
-    }
+  const handleClick = (evt) => {
+    evt.preventDefault();
+    console.log("click", "click");
+    dispatch(logout());
+  };
 
-    return (
-        <nav className={`${styles.profileNavigationLinks}`}>
-            <Link to="/profile" className={`${styles.links} text text_type_main-medium text_color_inactive ${isProfileActive ? styles.active : ""}`}>Профиль</Link>
-            <Link to="/profile/orders"  className={`${styles.links} text text_type_main-medium text_color_inactive ${isProfileOrderActive ? styles.active : ""}`}>История заказов</Link>
-            <button className={`${styles.exitButton} text text_type_main-medium text_color_inactive`} onClick={handleLogout}>Выход</button> 
-            <p className={`${styles.info} text text_type_main-default text_color_inactive`}>В этом разделе вы можете изменить свои персональные данные</p>
-        </nav>
-    )
+  const handleGetUser = (evt) => {
+    evt.preventDefault();
+    console.log("click", "cliack");
+    dispatch(getUser());
+    navigate("/profile/user", { replace: false });
+  };
+
+  return (
+    <section className={`${styles.profileSection}`}>
+      <div className={`${styles.profilePanel}`}>
+        <ul className={`${styles.profileUl}`}>
+          <li>
+            <NavLink
+              className={`text text_type_main-medium text_color_inactive ${
+                styles.defaultNavLink
+              } ${isProfileActive ? styles.active : ""}`}
+              to={"/profile"}
+            >
+              Профиль
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={`text text_type_main-medium text_color_inactive ${
+                styles.defaultNavLink
+              } ${isProfileOrderActive ? styles.active : ""}`}
+              to={"/profile/orders"}
+            >
+              История заказов
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={`text text_type_main-medium text_color_inactive ${styles.defaultNavLink}`}
+              to={"/login"}
+              onClick={handleClick}
+            >
+              Выход
+            </NavLink>
+          </li>
+        </ul>
+        <p className={`text text_type_main-small text_color_inactive pText`}>
+          В этом разделе вы можете изменить свои персональные данные
+        </p>
+      </div>
+      <Outlet />
+    </section>
+  );
 }

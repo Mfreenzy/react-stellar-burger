@@ -132,11 +132,6 @@ const IngredientCards = () => {
           />
         </div>
       </div>
-      {visible && (
-        <Modal header={"Детали ингредиента"} closeModal={handleCloseModal}>
-          <IngredientDetail></IngredientDetail>
-        </Modal>
-      )}
     </>
   );
 };
