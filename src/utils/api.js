@@ -1,11 +1,13 @@
-import { checkResponse } from "./BaseURL";
+import { PROFILE_ENDPOINT, checkResponse } from "./BaseURL";
 import { POST_REGISTER_ENDPOINT } from "./BaseURL";
 import { POST_LOGIN_ENDPOINT } from "./BaseURL";
-import { POST_TOKEN_ENDPOINT } from "./BaseURL";
 import { POST_LOGOUT_ENDPOINT } from "./BaseURL";
 import { POST_PASSWORD_RESET_ENDPOINT } from "./BaseURL";
 import { POST_RESET_ENDPOINT } from "./BaseURL";
 import { setUser } from "../services/actions/userActions";
+import { fetchWithRefresh } from "./reset-api";
+
+
 
 export const Register = (name, pass, email) => {
   return fetch(POST_REGISTER_ENDPOINT, {
@@ -61,42 +63,8 @@ export const Login = (email, pass) => {
     });
 };
 
-//3. Обновление accessToken при истечении 20 минут
 
-export const refreshToken = () => {
-  return fetch(POST_TOKEN_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-  }).then(checkResponse);
-};
-
-export const fetchWithRefresh = async (url, options) => {
-  try {
-    const res = await fetch(url, options);
-    return await checkResponse(res);
-  } catch (err) {
-    if (err.message === "jwt expired") {
-      const refreshData = await refreshToken(); //обновляем токен
-      if (!refreshData.success) {
-        return Promise.reject(refreshData);
-      }
-      localStorage.setItem("refreshToken", refreshData.refreshToken);
-      localStorage.setItem("accessToken", refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(url, options); //повторяем запрос
-      return await checkResponse(res);
-    } else {
-      return Promise.reject(err);
-    }
-  }
-};
-
-//4. Запрос Logout
+//3. Запрос Logout
 
 export const logout = () => {
   return (dispatch) => {
@@ -125,56 +93,90 @@ export const logout = () => {
   };
 };
 
-//5. Запрос на восстановление пароля 
+//4. Запрос на восстановление пароля
 
 export const forgotPassword = (email) => {
-
   return fetch(POST_PASSWORD_RESET_ENDPOINT, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "email": email,
-    })
-  })
-    .then(res => checkResponse(res));
+      email: email,
+    }),
+  }).then((res) => checkResponse(res));
 };
 
 export function postApiResetPassword(email) {
   forgotPassword(email)
-    .then(res => {
+    .then((res) => {
       console.log(res);
-      localStorage.setItem('resetPasswordFlag', true);
+      localStorage.setItem("resetPasswordFlag", true);
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-//6. Запрос на изменение пароля, при получения токена восстановления. 
+//5. Запрос на изменение пароля, при получения токена восстановления.
 
 export const resetPassword = (newPassword, token) => {
-    return fetch(POST_RESET_ENDPOINT, {
-      method: 'POST',
+  return fetch(POST_RESET_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: newPassword,
+      token: token,
+    }),
+  }).then((res) => checkResponse(res));
+};
+
+export function postApiReset(newPassword, token) {
+  resetPassword(newPassword, token)
+    .then((res) => {
+      console.log(res);
+      localStorage.removeItem("resetPasswordFlag");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//6. Обновление данных пользователя.
+
+export const updateUser = (email, name, password) => {
+  return (dispatch) => {
+    return fetchWithRefresh(PROFILE_ENDPOINT, {
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({
-        "password": newPassword,
-        "token": token
-      })
-    })
-      .then(res => checkResponse(res));
+        email,
+        name,
+        password,
+      }),
+    }).then((res) => {
+      console.log("resUpd", res);
+      dispatch(setUser(res.user));
+    });
   };
-  
-  export function postApiReset(newPassword, token) {
-    resetPassword(newPassword, token)
-      .then(res => {
-        console.log(res);
-        localStorage.removeItem('resetPasswordFlag')
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+};
+
+//7. Получение данных пользователя.
+export const getUser = () => {
+  return (dispatch) => {
+    return fetchWithRefresh(PROFILE_ENDPOINT, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
+      },
+    }).then((res) => {
+      dispatch(setUser(res.user));
+    });
+  };
+};
