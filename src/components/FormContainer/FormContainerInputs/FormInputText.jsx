@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 export function FormInputText({ placeholder }) {
     
@@ -21,3 +22,7 @@ export function FormInputText({ placeholder }) {
     />
   );
 }
+
+FormInputText.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+};

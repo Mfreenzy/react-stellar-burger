@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { token } from "../../../services/actions/inputsActions";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 export function FormInputToken({ placeholder }) {
     
@@ -24,3 +25,7 @@ export function FormInputToken({ placeholder }) {
     />
   );
 }
+
+FormInputToken.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+};
