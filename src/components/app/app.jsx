@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
 import React from "react";
 import AppHeader from "../../components/AppHeader/AppHeader";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Reg } from "../../pages/Registration";
 import { Log } from "../../pages/Login";
 import { Home } from "../../pages/Home";
@@ -17,9 +17,13 @@ import IngredientDetail  from "../IngredientDetails/IngredientDetail"
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const location = useLocation();
   const background = location.state && location.state.background;
   
+  const handleModalClose = () => {
+    navigate(-1);
+  }
 
   React.useEffect(() => {
     dispatch(checkUserAuth());
@@ -43,7 +47,7 @@ function App() {
       </Routes>
       
       {background && <Routes>
-        <Route path="/ingredients/:ingredientId" element={<Modal header={"Детали ингредиента"}>
+        <Route path="/ingredients/:ingredientId" element={<Modal closeModal={handleModalClose} header={"Детали ингредиента"}>
           <IngredientDetail/>
         </Modal>}/>
       </Routes>}

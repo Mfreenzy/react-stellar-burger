@@ -3,17 +3,14 @@ import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 import CloseButton from "../CloseButton/CloseButton";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
-import { useNavigate } from "react-router-dom";
 
 const mRoot = document.getElementById("react-modals");
 
-const Modal = ({ header, children }) => {
-
-    const navigate = useNavigate();
+const Modal = ({ header, closeModal, children }) => {
 
     const handleCloseModal = useCallback(() => {
-       navigate(-1);
-    }, []);
+       closeModal();
+    }, [closeModal]);
 
     useEffect(() => {
         const closeByUseEsc = (evt) => {
