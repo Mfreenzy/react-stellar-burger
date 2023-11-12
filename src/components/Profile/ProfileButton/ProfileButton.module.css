@@ -25,10 +25,11 @@
     opacity: 1;
 }
 
+.active {
+    color: inherit;
+}
+
 .defaultNavLink:hover {
     opacity: 0.8;
 }
 
-.active {
-    color: red
-}

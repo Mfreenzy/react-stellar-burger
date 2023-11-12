@@ -11,12 +11,17 @@ import {
   addCurrentIngredient,
 } from "../../../services/actions/currentIngredientsActions";
 import { useDrag } from "react-dnd";
+import { Link, useLocation } from "react-router-dom";
 
 function Card({ item, onClick }) {
+  const location = useLocation();
   const dispatch = useDispatch();
   const ingredientsConstructor = useSelector(
     (store) => store.currentIngredients
   );
+
+  const ingredientId = item['_id'];
+  const background = location.state && location.state.background;
 
   const [isDragging, dragRef] = useDrag({
     type: "ingredients",
@@ -68,12 +73,16 @@ function Card({ item, onClick }) {
     }
   };
 
-  const handlePopupClick = () => {
-    onClick();
-  };
+  // const handlePopupClick = () => {
+  //   onClick();
+  // };
 
   return (
-    <>
+    <Link 
+    key={ingredientId}
+    to={`/ingredients/${ingredientId}`}
+    state={{ background: location }}
+    className={styles.link}>
       <div ref={dragRef}>
         <li className={`${styles.listElement}`} onClick={() => handleClick(item)}>
           {checkCount(item) !== 0 && (
@@ -83,7 +92,6 @@ function Card({ item, onClick }) {
             className={`${styles.cardPhoto}  pl-4 pb-4`}
             src={item.image}
             alt={item.name}
-            onClick={() => handlePopupClick(item)}
           ></img>
           <div className={`${styles.currencyContainer}`}>
             <p
@@ -100,7 +108,7 @@ function Card({ item, onClick }) {
           </p>
         </li>
       </div>
-    </>
+    </Link>
   );
 }
 

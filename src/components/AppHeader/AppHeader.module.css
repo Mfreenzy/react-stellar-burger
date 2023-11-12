@@ -27,13 +27,9 @@
     align-items: center;
     box-sizing: border-box;
     text-decoration: none;
-    color: inherit;
-}
-
-.link_inactive {
-    composes: link;
     color:  #8585ad;
 }
+
 
 
 .menuButton {
@@ -46,5 +42,9 @@
     composes: link;
     margin-left: 288px;
     color:  #8585ad;
+}
+
+.active{
+    color: inherit;
 }
 

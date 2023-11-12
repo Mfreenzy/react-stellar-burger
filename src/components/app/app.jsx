@@ -12,15 +12,19 @@ import { useDispatch } from "react-redux";
 import { checkUserAuth } from "../../services/actions/userActions";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { ProfileInputFields } from "../../pages/ProfileInputFields";
+import Modal from "../Modal/Modal";
+import IngredientDetail  from "../IngredientDetails/IngredientDetail"
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
+  
 
   React.useEffect(() => {
     dispatch(checkUserAuth());
   }, []);
+
 
   return (
     <div className={styles.app}>
@@ -34,9 +38,15 @@ function App() {
         <Route path="/profile" element={<OnlyAuth component={<ProfileButton/>} />} >
             <Route index element={<ProfileInputFields/>}/>
             <Route path="orders" element={<OnlyAuth component={<ProfileInputFields/>} />} />
-          </Route>
-
+        </Route>
+        <Route path="/ingredients/:ingredientId" element={<IngredientDetail /> } />
       </Routes>
+      
+      {background && <Routes>
+        <Route path="/ingredients/:ingredientId" element={<Modal header={"Детали ингредиента"}>
+          <IngredientDetail/>
+        </Modal>}/>
+      </Routes>}
     </div>
   );
 }
