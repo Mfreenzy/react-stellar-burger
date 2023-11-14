@@ -2,7 +2,8 @@ import React from "react";
 import { Buttons, Inputs } from "../utils/InputsAndLinks/IAL";
 import { FormContainerUser } from "../components/FormContainer/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser, getUser} from "../utils/api";
+import { updateUser} from "../utils/api";
+import { getUser } from "../services/actions/userActions";
 import { Name, Email } from "../services/selectors/userSelector";
 import {
   addUser,

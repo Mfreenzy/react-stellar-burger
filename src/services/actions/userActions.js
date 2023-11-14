@@ -20,9 +20,9 @@ export const getUser = () => {
   };
 };
 
-export const login = () => {
+export const login = (email, pass) => {
   return (dispatch) => {
-    return tokens.login().then((res) => {
+    return tokens.login(email, pass).then((res) => {
       localStorage.setItem("accessToken", res.accessToken);
       localStorage.setItem("refreshToken", res.refreshToken);
       dispatch(setUser(res.user));
@@ -30,6 +30,17 @@ export const login = () => {
     });
   };
 };
+
+export const logout = () => {
+  return (dispatch) => {
+    return tokens.logout().then(() => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      dispatch(setUser(null));
+    });
+  };
+};
+
 
 export const checkUserAuth = () => {
   return (dispatch) => {

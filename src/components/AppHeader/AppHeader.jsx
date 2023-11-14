@@ -1,37 +1,57 @@
 import React from "react";
 import styles from "./AppHeader.module.css";
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink, useMatch } from "react-router-dom";
+import {
+  Logo,
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavigationLink } from "../NavigationLink/NavigationLink";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
+function AppHeader() {
 
-function AppHeader () {
-    const isConstructorActive = useMatch("/");
-    const isFeedActive = useMatch("/feed");
-    const isProfile = useMatch("/profile")
+    const location = useLocation();
+    const active = (to) => {
+      if (to === "/profile") {
+        return (location.pathname.indexOf(to) === 0) //проверяем что строка "/profile" находится именно в начале pathname
+          ? "primary"
+          : "secondary"
+      } else {
+        return to === location.pathname
+          ? "primary"
+          : "secondary"
+      }
+    }
 
-    return (
-        <header className={`${styles.header} pt-4 pb-4`}>
-            <nav className={styles.nav}>
-                <div className={styles.menuButton}>
-                <NavLink className={`${styles.link} pl-5 pr-5 pt-4 pb-4 ${isConstructorActive ? styles.active : ""}`} to="/">
-                    <BurgerIcon type="primary"/>
-                    <p className="text text_type_main-default">Конструктор</p>
-                </NavLink>
-                <NavLink className={`${styles.link} pl-5 pr-5 pt-4 pb-4 ${isFeedActive ? styles.active : ""}`} to="/feed">
-                    <ListIcon type="secondary"/>
-                    <p className="text text_type_main-default">Лента заказов</p>
-                </NavLink>
-                </div>
-                <NavLink className={styles.logoLink} to="/">
-                    <Logo />
-                </NavLink>
-                <NavLink className={`${styles.palink} ${isProfile ? styles.active : ""}`} to="/profile">
-                    <ProfileIcon type="secondary" />
-                    <p className="text text_type_main-default">Личный кабинет</p>
-                </NavLink>
-            </nav>
-        </header>
-    )
+  return (
+    <>
+       <header className={styles.header}>
+          <nav className={styles.panel}>
+            <ul className={`${styles.links}`}>
+              <li className={`${styles.link_home} cursor`}>
+                <NavigationLink to={'/'} icon={<BurgerIcon type={active("/")}/>} label={'Конструктор'}/>
+              </li>
+              <li className={`${styles.link_feed} cursor`}>
+                <NavigationLink to={'/feed'}
+                                icon={<ListIcon type={active("/feed")}/>} label={'Лента заказов'}/>
+              </li>
+              <li className={`${styles.link_logo} cursorLogo`}>
+                <Link to={'/'}><Logo/></Link>
+              </li>
+              <li className={`${styles.link_profile} cursor`}>
+                <NavigationLink to={'/profile'}
+                                icon={<ProfileIcon type={active("/profile")}/>} label={'Личный кабинет'}/>
+              </li>
+            </ul>
+          </nav>
+      </header>
+
+      <main className={styles.main}>
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
-export default React.memo(AppHeader)
+export default React.memo(AppHeader);

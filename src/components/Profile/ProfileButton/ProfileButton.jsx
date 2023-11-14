@@ -1,12 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getUser, logout } from "../../../utils/api";
-import { NavLink, Outlet, useNavigate, useMatch } from "react-router-dom";
+import { logout } from "../../../services/actions/userActions";
+import { NavLink, Outlet, useMatch } from "react-router-dom";
 import styles from "../ProfileButton/ProfileButton.module.css";
 
 export function ProfileButton() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const isProfileActive = useMatch("/profile");
   const isProfileOrderActive = useMatch("/profile/orders");
 
@@ -16,12 +15,6 @@ export function ProfileButton() {
     dispatch(logout());
   };
 
-  const handleGetUser = (evt) => {
-    evt.preventDefault();
-    console.log("click", "cliack");
-    dispatch(getUser());
-    navigate("/profile/user", { replace: false });
-  };
 
   return (
     <section className={`${styles.profileSection}`}>

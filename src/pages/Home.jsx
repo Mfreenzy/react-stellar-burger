@@ -10,12 +10,14 @@ import {
   addCurrentBun,
   addCurrentIngredient,
 } from "../services/actions/currentIngredientsActions";
+import { checkUserAuth } from "../services/actions/userActions";
 
 export function Home() {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(getBurgerIngredients());
+        dispatch(checkUserAuth())
       }, [dispatch]);
     
       const handleDrop = (item) => {
