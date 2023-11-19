@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrent } from "../../services/actions/currentOrderActions";
+import { getCurrentOrder } from "../../services/actions/currentOrderActions";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useMemo } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -33,15 +33,18 @@ export default function OrderInfo() {
         return order;
       }
     }
-    if (store.currentOrder && store.currentOrder.current && store.currentOrder.current.orders) {
-      order = store.currentOrder.current.orders.find((order) => order.number === number);
+    if (store.currentOrder && store.currentOrder.number && store.currentOrder.number.orders) {
+      order = store.currentOrder.number.orders.find((order) => order.number === number);
       if (order) {
-        return order;
+        return number;
       }
     }
   };
 
   const order = useSelector(orderFinder);
+
+  console.log("order", order);
+
   const ingredients = useSelector(allIngredientsArray);
 
   console.log(ingredients);
@@ -57,9 +60,9 @@ export default function OrderInfo() {
 
   useEffect(() => {
     if (!order) {
-      dispatch(setCurrent(number));
+      dispatch(getCurrentOrder(number));
     }
-  }, [order, number, dispatch]);
+  }, [dispatch, order, number]);
 
   const multiply = (ingredient) => {
     let res = orderIngredients?.filter((item) => item._id === ingredient._id);
@@ -76,7 +79,7 @@ export default function OrderInfo() {
     [orderIngredients]
   );
 
-  if (!order) {
+  if (order === undefined) {
     return null;
   }
 

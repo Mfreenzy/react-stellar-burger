@@ -1,8 +1,8 @@
 import { SET_CURRENT_ORDER, CLEAR_CURRENT_ORDER, SET_CURRENT_ORDER_ERROR } from "../actions/currentOrderActions";
 
 const initialOrderState = {
-    current: null,
-    error: null
+    error: null,
+    number: null
 }
 
 export const currentOrderReducer = (state = initialOrderState, action) => {
@@ -10,12 +10,12 @@ export const currentOrderReducer = (state = initialOrderState, action) => {
         case SET_CURRENT_ORDER:
             return {
                 ...state,
-                current: action.payload
+                number: action.payload
             };
         case CLEAR_CURRENT_ORDER:
             return {
                 ...state,
-                current: null
+                number: null
             };
         case SET_CURRENT_ORDER_ERROR:
             return {
