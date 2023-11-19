@@ -13,7 +13,9 @@ function Order({ order }) {
   const orderIngredients = React.useMemo(() => {
     if (order?.ingredients && Array.isArray(ingredients)) {
       return order.ingredients.map((ingredientId) => {
-        return ingredients.find((ingredient) => ingredientId === ingredient._id);
+        return ingredients.find(
+          (ingredient) => ingredientId === ingredient._id
+        );
       });
     }
     return []; // return an empty array if ingredients is not available
@@ -83,6 +85,7 @@ function Order({ order }) {
                   </div>
                 );
               }
+              return null;
             })}
           </div>
           <div className={`${styles.orderPrice} pb-1 pt-1`}>
@@ -97,4 +100,4 @@ function Order({ order }) {
   );
 }
 
-export default Order
+export default Order;
