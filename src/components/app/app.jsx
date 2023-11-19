@@ -12,7 +12,7 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { ProfileInputFields } from "../../pages/ProfileInputFields";
 import Modal from "../Modal/Modal";
 import IngredientDetail  from "../IngredientDetails/IngredientDetail"
-import { Orders } from "../../pages/Orders/Orders";
+import Orders from "../../pages/Orders/Orders";
 import Feed from "../../pages/Feed/Feed";
 
 function App() {

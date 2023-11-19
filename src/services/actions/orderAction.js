@@ -40,12 +40,14 @@ export function getBurgerOrder(data) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken")
       },
       body: JSON.stringify({ ingredients: data }),
     })
       .then((res) => checkResponse(res))
       .then((data) => {
         const orderNumber = data.order.number; // Получаем только номер заказа
+        console.log(orderNumber)
         dispatch(postOrderSuccess(orderNumber));
       })
       .catch(() => {

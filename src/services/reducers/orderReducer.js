@@ -9,7 +9,6 @@ const initialState = {
   orderNumber: null,
   orderRequest: false,
   orderFailed: false,
-  currentOrderInfo: null,
 };
 
 const orderReducer = (state = initialState, action) => {
