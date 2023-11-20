@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import styles from "../Order/Order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -72,7 +71,7 @@ function Order({ order }) {
             {orderIngredients.map((ingredient, index) => {
               if (index < 6) {
                 return (
-                  <div className={`${styles.orderImageBox}`} key={uuidv4(8)}>
+                  <div className={`${styles.orderImageBox}`} key={index}>
                     <img
                       alt={ingredient.name}
                       src={ingredient.image}
