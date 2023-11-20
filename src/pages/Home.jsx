@@ -3,23 +3,16 @@ import styles from "../components/app/app.module.css";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
 import { useDispatch, useSelector } from "react-redux";
-import { getBurgerIngredients } from "../services/actions/ingredientActions";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {
   addCurrentBun,
   addCurrentIngredient,
 } from "../services/actions/currentIngredientsActions";
-import { checkUserAuth } from "../services/actions/userActions";
 
 export function Home() {
     const dispatch = useDispatch();
 
-    React.useEffect(() => {
-        dispatch(getBurgerIngredients());
-        dispatch(checkUserAuth())
-      }, [dispatch]);
-    
       const handleDrop = (item) => {
         if (item.type === "bun") {
           dispatch(addCurrentBun(item));

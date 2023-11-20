@@ -15,33 +15,35 @@ export default function OrderInfo() {
   const location = useLocation();
   const { number } = useParams();
 
-  console.log("location", location)
+  console.log("location", location);
   console.log("number", number);
 
   const background = location.state?.background;
-  const orderFinder = (store, number) => {
+  const orderFinder = (number) => (store) => {
     let order;
     if (store.feed && store.feed.orders) {
-      order = store.feed.orders.find((order) => order.number === number);
+      order = store.feed.orders.find((order) => order.number === +number);
       if (order) {
         return order;
       }
     }
     if (store.profileFeed && store.profileFeed.orders) {
-      order = store.profileFeed.orders.find((order) => order.number === number);
+      order = store.profileFeed.orders.find(
+        (order) => order.number === +number
+      );
       if (order) {
         return order;
       }
     }
     if (store.currentOrder && store.currentOrder.number && store.currentOrder.number.orders) {
-      order = store.currentOrder.number.orders.find((order) => order.number === number);
-      if (order) {
-        return number;
-      }
+        order = store.currentOrder.number.orders.find((order) => order.number === +number)
+        if (order) {
+            return order
+        }
     }
   };
 
-  const order = useSelector(orderFinder);
+  const order = useSelector(orderFinder(number));
 
   console.log("order", order);
 
@@ -49,20 +51,21 @@ export default function OrderInfo() {
 
   console.log(ingredients);
 
-  const orderIngredients = useMemo(() =>
-  order?.ingredients.map((ingredientId) =>
-      ingredients?.find((ingredient) =>
-          ingredientId === ingredient._id
-      ))
-  , [order?.ingredients, ingredients]);
-
-  console.log("orderIngredients", orderIngredients)
-
   useEffect(() => {
     if (!order) {
       dispatch(getCurrentOrder(number));
     }
   }, [dispatch, order, number]);
+
+  const orderIngredients = useMemo(
+    () =>
+      order?.ingredients.map((ingredientId) =>
+        ingredients?.find((ingredient) => ingredientId === ingredient._id)
+      ),
+    [order?.ingredients, ingredients]
+  );
+
+  console.log("orderIngredients", orderIngredients);
 
   const multiply = (ingredient) => {
     let res = orderIngredients?.filter((item) => item._id === ingredient._id);
@@ -79,18 +82,17 @@ export default function OrderInfo() {
     [orderIngredients]
   );
 
-  if (order === undefined) {
+  if (!order) {
     return null;
   }
 
   return (
-    <div className={background ? `${styles.OrderInfoContainer}` : `${styles.OrderInfoPage}`}>
-      <p
-        className={`${styles.OrderInfoNumber} text text_type_digits-default`}
-      >{`#${order.number}`}</p>
+    <div className={background ? styles.OrderInfoContainer : styles.OrderInfoPage}>
+      <p className={background ? `${styles.OrderInfoNumber} text text_type_digits-default` : `${styles.Test} text text_type_digits-default`}>{`#${order.number}`}</p>
       <p className="text text_type_main-medium mt-10 mb-3">{order.name}</p>
       {order.status === "done" ? (
-        <p className={`${styles.OrderInfoStatusDone} text text_type_main-default mb-15`}>
+        <p
+          className={`${styles.OrderInfoStatusDone} text text_type_main-default mb-15`}>
           {order.status === "done"
             ? "Выполнен"
             : order.status === "pending"
@@ -111,7 +113,7 @@ export default function OrderInfo() {
         </p>
       )}
       <p className="text text_type_main-medium mb-6">Состав:</p>
-      <div className={`${styles.OrderInfoCards} custom-scroll mb-10`}>
+      <div className={`${styles.OrderInfoCards} custom-scroll`}>
         {uniqueIngredients?.map((ingredient) => (
           <div className={styles.OrderInfoCard} key={uuidv4()}>
             <div className={styles.OrderInfoCardinfo}>
@@ -133,7 +135,7 @@ export default function OrderInfo() {
           </div>
         ))}
       </div>
-      <div className={styles.OrderInfoTotalprice}>
+      <div className={`${styles.OrderInfoTotalprice} pb-10`}>
         <p className="text text_type_main-default text_color_inactive">
           <FormattedDate date={new Date(order.createdAt)} />
         </p>

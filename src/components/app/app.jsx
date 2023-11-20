@@ -15,8 +15,12 @@ import IngredientDetail from "../IngredientDetails/IngredientDetail";
 import Orders from "../../pages/Orders/Orders";
 import Feed from "../../pages/Feed/Feed";
 import OrderInfo from "../OrderInfo/OrderInfo";
+import { useDispatch } from "react-redux";
+import { getBurgerIngredients } from "../../services/actions/ingredientActions";
+import { checkUserAuth } from "../../services/actions/userActions";
 
 function App() {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -24,6 +28,11 @@ function App() {
   const handleModalClose = () => {
     navigate(-1);
   };
+
+  React.useEffect(() => {
+    dispatch(getBurgerIngredients());
+    dispatch(checkUserAuth())
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
