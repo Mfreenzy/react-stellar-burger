@@ -6,6 +6,7 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { allIngredientsArray } from "../../services/selectors/ingredientsSelectors";
 import { useSelector } from "react-redux";
 import { useMatch } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function Order({ order }) {
   const ingredients = useSelector(allIngredientsArray);
@@ -99,5 +100,8 @@ function Order({ order }) {
     </>
   );
 }
+
+Order.propTypes = PropTypes.object.isRequired
+
 
 export default Order;
