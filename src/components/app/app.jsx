@@ -1,57 +1,52 @@
 import styles from "./app.module.css";
 import React from "react";
 import AppHeader from "../../components/AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { useDispatch, useSelector } from "react-redux";
-import { getBurgerIngredients } from "../../services/actions/ingredientActions";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { addCurrentBun, addCurrentIngredient} from '../../services/actions/currentIngredientsActions'
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Reg } from "../../pages/Registration";
+import { Log } from "../../pages/Login";
+import { Home } from "../../pages/Home";
+import { ForgotPassword } from "../../pages/ForgotPassword";
+import { ResetPassword } from "../../pages/ResetPassword";
+import { ProfileButton } from "../../components/Profile/ProfileButton/ProfileButton"
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import { ProfileInputFields } from "../../pages/ProfileInputFields";
+import Modal from "../Modal/Modal";
+import IngredientDetail  from "../IngredientDetails/IngredientDetail"
+import { Orders } from "../../pages/Orders/Orders";
 
 function App() {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
-
-  const handleDrop = (item) => {
-    if (item.type === "bun") {
-      dispatch(addCurrentBun(item))
-    } else {
-      dispatch(addCurrentIngredient(item))
-    }
-  };
+  const navigate = useNavigate()
+  const location = useLocation();
+  const background = location.state && location.state.background;
   
-  const { isLoading, ingredients, hasError } = useSelector(
-    (store) => store.allIngredients
-  );
-
-  if (isLoading) {
-    return <div className={`text text_type_main-default`}>Загрузка...</div>;
-  } else {
-    if (hasError) {
-      return (
-        <div className={`text text_type_main-default`}>Произошла ошибка</div>
-      );
-    }
-    return (
-      <div className={styles.app}>
-        <AppHeader />
-        <div className={styles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <div>
-                <BurgerIngredients ingredients={ingredients} />
-            </div>
-            <div>
-              <BurgerConstructor onDropHandler={handleDrop}/>
-            </div>
-          </DndProvider>
-        </div>
-      </div>
-    );
+  const handleModalClose = () => {
+    navigate(-1);
   }
+
+  return (
+    <div className={styles.app}>
+      <Routes location={background || location}>
+      <Route path="/" element={<AppHeader/>}>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<OnlyUnAuth component={<Log/>} />} />
+        <Route path="/register" element={<OnlyUnAuth component={<Reg/>} />} />
+        <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
+        <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
+        <Route path="/profile" element={<OnlyAuth component={<ProfileButton/>} />} >
+            <Route index element={<ProfileInputFields/>}/>
+            <Route path="orders" element={<OnlyAuth component={<Orders/>} />} />
+        </Route>
+        <Route path="/ingredients/:ingredientId" element={<IngredientDetail /> } />
+      </Route>
+      </Routes>
+      
+      {background && <Routes>
+        <Route path="/ingredients/:ingredientId" element={<Modal closeModal={handleModalClose} header={"Детали ингредиента"}>
+          <IngredientDetail/>
+        </Modal>}/>
+      </Routes>}
+    </div>
+  );
 }
 
 export default App;

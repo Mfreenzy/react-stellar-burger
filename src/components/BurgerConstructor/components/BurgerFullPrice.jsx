@@ -7,12 +7,16 @@ import OrderDetails from "../../OrderDetails/OrderDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCurrentIngredients } from "../../../services/actions/currentIngredientsActions";
 import { resetOrder } from "../../../services/actions/orderAction";
+import { useNavigate } from "react-router-dom";
+import { User } from "../../../services/selectors/userSelector";
 
 function BurgerFullPrice() {
   const ingredientsConstructor = useSelector(
     (store) => store.currentIngredients
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(User)
   const burgerInfill = ingredientsConstructor.other;
   const burgerBun = ingredientsConstructor.bun;
   const [fullPriceModal, setFullPriceModal] = useState(false);
@@ -54,7 +58,13 @@ function BurgerFullPrice() {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={handleOpenModal}
+          onClick={() => {
+            if (!user) {
+              navigate("/login");
+            } else {
+              handleOpenModal();
+            }
+          }}
           disabled={isButtonDisabled}
         >
           Оформить заказ
