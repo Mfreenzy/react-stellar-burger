@@ -4,16 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import { connect, disconnect } from "../../services/actions/profileFeedAction";
 import Order from "../../components/Order/Order";
+import { DefaultRootState } from "../../services/store";
 
 function Orders() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isLoading, Error, orders } = useSelector(
-    (store) => store.profileFeed
+  const { isLoading, error, orders } = useSelector(
+    (store:DefaultRootState) => store.profileFeed
   );
 
   const token = localStorage.getItem("accessToken");
-  const tokenSplit = token.split("Bearer ")[1];
+  const tokenSplit = token?.split("Bearer ")[1];
   const PROFILEFEED_ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${tokenSplit}`;
 
   useEffect(() => {
@@ -26,9 +27,9 @@ function Orders() {
   return (
     <div className={`${styles.PFContainer} custom-scroll`}>
       {isLoading && "Загрузка..."}
-      {Error && "Произошла ошибка"}
+      {error && "Произошла ошибка"}
       {!isLoading &&
-        !Error &&
+        !error &&
         orders !== null &&
         [...orders].reverse().map((order) => (
           <Link

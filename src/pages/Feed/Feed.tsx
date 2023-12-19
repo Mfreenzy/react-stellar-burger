@@ -6,11 +6,13 @@ import Order from "../../components/Order/Order";
 import { useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { TOrder } from "../../types/types";
+import { DefaultRootState } from "../../services/store";
 
 function Feed() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const ALL_ORDERS_URL = "wss://norma.nomoreparties.space/orders/all";
+  const ALL_ORDERS_URL: string = "wss://norma.nomoreparties.space/orders/all";
 
   useEffect(() => {
     dispatch(Connect(ALL_ORDERS_URL));
@@ -19,7 +21,7 @@ function Feed() {
     };
   }, [dispatch]);
 
-  const { isLoading, Error, orders } = useSelector((store) => store.feed);
+  const { isLoading, error, orders } = useSelector((store:DefaultRootState) => store.feed);
 
   return (
     <div className={`${styles.feedContainer}`}>
@@ -29,11 +31,11 @@ function Feed() {
       <main className={`${styles.feedMain} `}>
         <section className={`${styles.feedOrder} pb-10 custom-scroll`}>
           {isLoading && "Загрузка..."}
-          {Error && "Произошла ошибка"}
+          {error && "Произошла ошибка"}
           {!isLoading &&
-            !Error &&
+            !error &&
             orders !== null &&
-            orders.map((order) => (
+            orders.map((order:TOrder) => (
               <Link
                 className={styles.feedLink}
                 key={order.number}
@@ -47,8 +49,8 @@ function Feed() {
 
         <section className={`${styles.feedTotal} pb-10`}>
           {isLoading && "Загрузка..."}
-          {Error && "Произошла ошибка"}
-          {!isLoading && !Error && orders !== null && <TotalBurgerInfo />}
+          {error && "Произошла ошибка"}
+          {!isLoading && !error && orders !== null && <TotalBurgerInfo />}
         </section>
       </main>
     </div>

@@ -9,11 +9,13 @@ import {
   addCurrentBun,
   addCurrentIngredient,
 } from "../services/actions/currentIngredientsActions";
+import { DefaultRootState } from "../services/store";
+import { TIngredient } from "../types/types";
 
 export function Home() {
     const dispatch = useDispatch();
 
-      const handleDrop = (item) => {
+      const handleDrop = (item:TIngredient) => {
         if (item.type === "bun") {
           dispatch(addCurrentBun(item));
         } else {
@@ -22,7 +24,7 @@ export function Home() {
       };
     
       const { isLoading, ingredients, hasError } = useSelector(
-        (store) => store.allIngredients
+        (store:DefaultRootState) => store.allIngredients
       );
     
       if (isLoading) {
@@ -41,7 +43,7 @@ return (
               <BurgerIngredients ingredients={ingredients} />
             </div>
             <div>
-              <BurgerConstructor onDropHandler={handleDrop} />
+              <BurgerConstructor onDropHandler={handleDrop} other={[]}/>
             </div>
           </DndProvider>
         </div>

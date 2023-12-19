@@ -6,11 +6,12 @@ export const FEED_WS_CLOSE = 'FEED_WS_CLOSE';
 export const FEED_WS_GET_FEED = 'FEED_WS_MESSAGE';
 export const FEED_DISCONNECT = 'FEED_DISCONNECT';
 
-export const Connect = (url) => ({
+export const Connect = (url:string) => ({
     type: FEED_CONNECT,
     payload: url
 });
 
-export const Disconnect = () => ({
-    type: FEED_DISCONNECT
+export const Disconnect = (url:string) => ({
+    type: FEED_DISCONNECT,
+    payload: url
 });

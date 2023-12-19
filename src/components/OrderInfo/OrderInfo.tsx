@@ -9,6 +9,10 @@ import { useParams } from "react-router-dom";
 import { allIngredientsArray } from "../../services/selectors/ingredientsSelectors";
 import styles from "../OrderInfo/OrderInfo.module.css";
 import { useLocation } from "react-router-dom";
+import { TIngredient, TOrder } from "../../types/types";
+import { DefaultRootState } from "../../services/store";
+
+
 
 export default function OrderInfo() {
   const dispatch = useDispatch();
@@ -19,31 +23,31 @@ export default function OrderInfo() {
   console.log("number", number);
 
   const background = location.state?.background;
-  const orderFinder = (number) => (store) => {
+  const orderFinder = (number:string) => (store:DefaultRootState) => {
     let order;
     if (store.feed && store.feed.orders) {
-      order = store.feed.orders.find((order) => order.number === +number);
+      order = store.feed.orders.find((order:TOrder) => order.number === +number);
       if (order) {
         return order;
       }
     }
     if (store.profileFeed && store.profileFeed.orders) {
       order = store.profileFeed.orders.find(
-        (order) => order.number === +number
+        (order:TOrder) => order.number === +number
       );
       if (order) {
         return order;
       }
     }
     if (store.currentOrder && store.currentOrder.number && store.currentOrder.number.orders) {
-        order = store.currentOrder.number.orders.find((order) => order.number === +number)
+        order = store.currentOrder.number.orders.find((order:TOrder) => order.number === +number)
         if (order) {
             return order
         }
     }
   };
 
-  const order = useSelector(orderFinder(number));
+  const order = useSelector(orderFinder(number as string));
 
   console.log("order", order);
 
@@ -59,26 +63,26 @@ export default function OrderInfo() {
 
   const orderIngredients = useMemo(
     () =>
-      order?.ingredients.map((ingredientId) =>
-        ingredients?.find((ingredient) => ingredientId === ingredient._id)
+      order?.ingredients.map((ingredientId:string) =>
+        ingredients?.find((ingredient:TIngredient) => ingredientId === ingredient._id)
       ),
     [order?.ingredients, ingredients]
   );
 
   console.log("orderIngredients", orderIngredients);
 
-  const multiply = (ingredient) => {
-    let res = orderIngredients?.filter((item) => item._id === ingredient._id);
+  const multiply = (ingredient:TIngredient) => {
+    let res = orderIngredients?.filter((item:TIngredient) => item._id === ingredient._id);
     return res.length;
   };
 
-  const uniqueElements = (arr) =>
-    arr?.filter((element, index) => index === arr.indexOf(element));
+  const uniqueElements = (arr:TIngredient[]) =>
+    arr?.filter((element, index:number) => index === arr.indexOf(element));
 
   const uniqueIngredients = uniqueElements(orderIngredients);
 
   const orderPrice = useMemo(
-    () => orderIngredients?.reduce((acc, i) => acc + i.price, 0),
+    () => orderIngredients?.reduce((acc:number, i:TIngredient) => acc + i.price, 0),
     [orderIngredients]
   );
 
@@ -114,7 +118,7 @@ export default function OrderInfo() {
       )}
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={`${styles.OrderInfoCards} custom-scroll`}>
-        {uniqueIngredients?.map((ingredient) => (
+        {uniqueIngredients?.map((ingredient:TIngredient) => (
           <div className={styles.OrderInfoCard} key={uuidv4()}>
             <div className={styles.OrderInfoCardinfo}>
               <div className={styles.OrderInfoImgbox}>

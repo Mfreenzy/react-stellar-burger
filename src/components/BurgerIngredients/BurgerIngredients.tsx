@@ -1,7 +1,12 @@
 import React from "react";
 import IngredientCards from "./components/IngredientCards";
+import { TIngredient } from "../../types/types";
 
-function BurgerIngredients() {
+type Ingredients = {
+  ingredients: TIngredient[]
+}
+
+function BurgerIngredients({ingredients}:Ingredients) {
   return (
     <section>
       <IngredientCards />

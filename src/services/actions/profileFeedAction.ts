@@ -6,12 +6,13 @@ export const PROFILEFEED_ORDERS_WS_CLOSE = 'PROFILEFEED_ORDERS_WS_CLOSE';
 export const PROFILEFEED_ORDERS_WS_GET_FEED = 'PROFILEFEED_ORDERS_WS_MESSAGE';
 export const PROFILEFEED_ORDERS_DISCONNECT = 'PROFILEFEED_ORDERS_DISCONNECT';
 
-export const connect = (url) => ({
+export const connect = (url:string) => ({
     type: PROFILEFEED_ORDERS_CONNECT,
     payload: url
 });
 
-export const disconnect = () => ({
-    type: PROFILEFEED_ORDERS_DISCONNECT
+export const disconnect = (url:string) => ({
+    type: PROFILEFEED_ORDERS_DISCONNECT,
+    payload: url
 });
 

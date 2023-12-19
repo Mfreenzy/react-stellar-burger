@@ -90,3 +90,10 @@ export interface IProtected {
 export interface INotProtected {
   component: JSX.Element;
 }
+
+export type TWSMessage = {
+  orders: TOrder[];
+  success: boolean;
+  total: number;
+  totalToday: number;
+};
