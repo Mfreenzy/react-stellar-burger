@@ -9,7 +9,7 @@ export function ProfileButton() {
   const isProfileActive = useMatch("/profile");
   const isProfileOrderActive = useMatch("/profile/orders");
 
-  const handleClick = (evt) => {
+  const handleClick = (evt: React.MouseEvent) => {
     evt.preventDefault();
     console.log("click", "click");
     dispatch(logout());

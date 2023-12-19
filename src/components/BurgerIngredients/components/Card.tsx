@@ -4,7 +4,6 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { cardsPropType } from "../../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCurrentBun,
@@ -12,12 +11,16 @@ import {
 } from "../../../services/actions/currentIngredientsActions";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
+import { TIngredient } from "../../../types/types";
+import { DefaultRootState } from "../../../services/store";
+import { TCardElement } from "../../../types/types";
 
-function Card({ item, onClick }) {
+
+function Card({ item, onClick }: TCardElement) {
   const location = useLocation();
   const dispatch = useDispatch();
   const ingredientsConstructor = useSelector(
-    (store) => store.currentIngredients
+    (store:DefaultRootState) => store.currentIngredients
   );
 
   const ingredientId = item['_id'];
@@ -33,7 +36,7 @@ function Card({ item, onClick }) {
 
   // const opacity = isDrag ? 0.4 : 1
 
-  const checkCount = (item) => {
+  const checkCount = (item:TIngredient) => {
     //устанавливаем счетчик как 0
     let count = 0;
 
@@ -49,14 +52,14 @@ function Card({ item, onClick }) {
     else {
       // в переменную счетчик ставим длинну массива отфильтрованного по id текущего элемента.
       count = ingredientsConstructor.other.filter(
-        (ingredient) => ingredient._id === item._id
+        (ingredient:TCardElement) => ingredient._id === item._id
       ).length;
     }
     // возвращаем найденный счетчик
     return count;
   };
 
-  const handleClick = () => {
+  const handleClick = (item:TIngredient) => {
     if (isDragging) {
       return;
     }
@@ -99,7 +102,7 @@ function Card({ item, onClick }) {
             >
               {item.price}
             </p>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </div>
           <p
             className={`${styles.cardDescription} text text_type_main-default`}
@@ -112,6 +115,5 @@ function Card({ item, onClick }) {
   );
 }
 
-Card.propTypes = cardsPropType;
 
 export default Card;

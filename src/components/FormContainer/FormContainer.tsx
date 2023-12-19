@@ -4,35 +4,16 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Inputs } from "../../utils/InputsAndLinks/IAL";
 import { Links } from "../../utils/InputsAndLinks/IAL";
 
-export function FormContainerLogin({ header }) {
-  return (
-    <section className={`${styles.formContainer}`}>
-      <p className="text text_type_main-medium">{header}</p>
-      <form>
-        <>
-          <div className={`${styles.formInputs}`}>
-            {Inputs.email}
-            {Inputs.password}
-          </div>
-          <Button
-            htmlType="button"
-            type="primary"
-            size="medium"
-            extraClass={styles.buttonExtra}
-            children={"Войти"}
-          />
-        </>
-      </form>
-      <div className={`${styles.formLinks}`}>
-        {Links.newUser}
-        {Links.forgotPassword}
-      </div>
-    </section>
-  );
+interface FormContainerProps {
+  header: string;
+  inputs: string[];
+  links: string[];
+  button: string;
+  handleSubmit: () => void; // Replace '() => void' with the actual type of your handleSubmit function
+  handleReset: () => void; // Replace '() => void' with the actual type of your handleReset function
 }
 
-
-export function FormContainerOther({header, inputs, links, button}) {
+export function FormContainerOther({header, inputs, links, button}:FormContainerProps) {
 
     return (
       <section className={`${styles.formContainer}`}>
@@ -56,7 +37,7 @@ export function FormContainerOther({header, inputs, links, button}) {
     )
   }
 
-  export function FormContainerUser({inputs, button, handleSubmit, handleReset}) {
+  export function FormContainerUser({inputs, button, handleSubmit, handleReset}:FormContainerProps) {
 
     return (
       <section className={`${styles.sectionUser}`}>

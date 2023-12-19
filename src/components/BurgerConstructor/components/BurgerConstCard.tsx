@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useRef, RefObject } from "react";
 import styles from "./BurgerConstTotal.module.css";
 import {
   CurrencyIcon,
@@ -8,23 +8,29 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { removeCurrentIngredient } from "../../../services/actions/currentIngredientsActions";
 import { useDrag, useDrop } from "react-dnd";
-import { checkString, checklNumber, optionalObject } from "../../../utils/prop-types";
-import PropTypes from "prop-types";
+import { TIngredient } from "../../../types/types";
+import { DefaultRootState } from '../../../services/store'
+import { TFillingElement } from "../../../types/types";
 
 
-export function BurgerConstCard({ moveCard, index, id, item }) {
+export function BurgerConstCard({
+  moveCard,
+  index,
+  id,
+  item,
+}: TFillingElement) {
   const ingredientsConstructor = useSelector(
-    (store) => store.currentIngredients
+    (store:DefaultRootState) => store.currentIngredients
   );
   const burgerInfill = ingredientsConstructor.other;
   const dispatch = useDispatch();
 
-  function deleteCard(item) {
+  function deleteCard(item:TIngredient) {
     // вызов действия, которое будет удалять элемент из состояния
     dispatch(removeCurrentIngredient(item));
   }
 
-  const ref = React.useRef(null);
+  const ref: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop({
     accept: "item",
     collect(monitor) {
@@ -32,7 +38,7 @@ export function BurgerConstCard({ moveCard, index, id, item }) {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: TFillingElement, monitor) {
       if (!ref.current) {
         return;
       }
@@ -49,6 +55,10 @@ export function BurgerConstCard({ moveCard, index, id, item }) {
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
+      // If `clientOffset` is `null`, exit the function
+      if (!clientOffset) {
+        return;
+      }
       // Get pixels to the top
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       // Only perform the move when the mouse has crossed half of the items height
@@ -84,9 +94,9 @@ export function BurgerConstCard({ moveCard, index, id, item }) {
   drag(drop(ref));
 
   return (
-    <div ref={ref} data-handler-id={handlerId} styles={{ ...styles, opacity }}>
+    <div ref={ref} data-handler-id={handlerId} style={{ ...styles, opacity }}>
       <li className={`${styles.totalContainer} mt-4 mb-4`}>
-        <DragIcon />
+        <DragIcon type="primary" />
         <div className={`${styles.elementTotal} pt-4 pr-6 pb-4 pl-6`}>
           <img src={item.image} alt="" className={`${styles.elementImage}`} />
           <span
@@ -100,7 +110,7 @@ export function BurgerConstCard({ moveCard, index, id, item }) {
             >
               {item.price}
             </span>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </div>
           <DeleteIcon type="primary" onClick={() => deleteCard(item)} />
         </div>
@@ -109,9 +119,4 @@ export function BurgerConstCard({ moveCard, index, id, item }) {
   );
 }
 
-BurgerConstCard.propTypes = {
-  moveCard: PropTypes.func.isRequired,
-  index: checklNumber,
-  id: checkString,
-  item: optionalObject,
-};
+

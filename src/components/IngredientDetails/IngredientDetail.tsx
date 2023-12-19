@@ -3,6 +3,7 @@ import styles from "./IngredientDetail.module.css";
 import { useSelector } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 import { allIngredientsArray } from "../../services/selectors/ingredientsSelectors";
+import { TIngredient } from "../../types/types";
 
 
 function IngredientDetail() {
@@ -17,7 +18,7 @@ function IngredientDetail() {
     const Array1 = useSelector(allIngredientsArray)
     console.log(Array1)
 
-    const Element1 = Array1.find(ingredient => ingredient._id === ingredientId)
+    const Element1 = Array1.find((ingredient:TIngredient) => ingredient._id === ingredientId)
     console.log(Element1)
 
     const testContainer = background ? "" : "container"

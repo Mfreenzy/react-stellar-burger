@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
+import { FC } from "react";
+import { IProtected, INotProtected } from "../../types/types";
+import { DefaultRootState } from "../../services/store";
 
-const Protected = ({ onlyUnAuth = false, component }) => {
+const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   // isAuthChecked это флаг, показывающий что проверка токена произведена
   // при этом результат этой проверки не имеет значения, важно только,
   // что сам факт проверки имел место.
-  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-  const user = useSelector((store) => store.user.user);
+  const isAuthChecked = useSelector((store:DefaultRootState) => store.user.isAuthChecked);
+  const user = useSelector((store:DefaultRootState) => store.user.user);
   const location = useLocation();
 
   if (!isAuthChecked) {
@@ -33,9 +35,8 @@ const Protected = ({ onlyUnAuth = false, component }) => {
   return component;
 };
 
-Protected.propTypes = PropTypes.element.isRequired
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }) => (
+export const OnlyUnAuth: FC<INotProtected> = ({ component }) => (
   <Protected onlyUnAuth={true} component={component} />
 );

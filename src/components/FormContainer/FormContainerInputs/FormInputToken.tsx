@@ -2,11 +2,11 @@ import React from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { token } from "../../../services/actions/inputsActions";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import { DefaultRootState } from "../../../services/store";
 
-export function FormInputToken({ placeholder }) {
+export function FormInputToken({placeholder}: {placeholder: string}) {
     
-  const tokenValue = useSelector((store) => store.inputs.token)
+  const tokenValue = useSelector((store:DefaultRootState) => store.inputs.token)
   const inputRef = React.useRef(null);
   const dispatch = useDispatch();
 
@@ -25,7 +25,3 @@ export function FormInputToken({ placeholder }) {
     />
   );
 }
-
-FormInputToken.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-};

@@ -5,11 +5,17 @@ import BurgerConstTotal from "./components/BurgerConstTotal";
 import BurgerFullPrice from "./components/BurgerFullPrice";
 import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import PropTypes from "prop-types";
+import { DefaultRootState } from "../../services/store";
+import { TIngredient } from "../../types/types";
 
-const BurgerConstructor = ({onDropHandler}) => {
+interface BurgerConstructorProps {
+    onDropHandler: (item: TIngredient) => void;
+    other: TIngredient[];
+}
+
+const BurgerConstructor = ({onDropHandler}:BurgerConstructorProps) => {
   const ingredientsConstructor = useSelector(
-    (store) => store.currentIngredients
+    (store:DefaultRootState) => store.currentIngredients
   );
 
   const burgerInfill = ingredientsConstructor.other;
@@ -24,9 +30,11 @@ const BurgerConstructor = ({onDropHandler}) => {
     priceBun = burgerBun.price;
   }
 
+  const priceBunNum: number = parseFloat(priceBun);
+
   const [{ isOver, canDrop }, dropRef] = useDrop({
     accept: "ingredients",
-    drop(item, monitor) {
+    drop(item: TIngredient, monitor) {
       if (!monitor.isOver({ shallow: true })) {
         return;
       }
@@ -51,7 +59,7 @@ const BurgerConstructor = ({onDropHandler}) => {
               type="top"
               isLocked={true}
               text={`${nameBun} (верх)`}
-              price={priceBun}
+              price={priceBunNum}
               thumbnail={imageBun}
             />
           )}
@@ -65,7 +73,7 @@ const BurgerConstructor = ({onDropHandler}) => {
               type="bottom"
               isLocked={true}
               text={`${nameBun} (низ)`}
-              price={priceBun}
+              price={priceBunNum}
               thumbnail={imageBun}
             />
           )}
@@ -76,7 +84,6 @@ const BurgerConstructor = ({onDropHandler}) => {
   );
 };
 
-BurgerConstructor.propTypes = { onDropHandler: PropTypes.func.isRequired };
 
 
 export default BurgerConstructor;

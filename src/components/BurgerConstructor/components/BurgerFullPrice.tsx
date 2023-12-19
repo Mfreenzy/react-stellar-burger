@@ -9,10 +9,13 @@ import { clearCurrentIngredients } from "../../../services/actions/currentIngred
 import { resetOrder } from "../../../services/actions/orderAction";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../services/selectors/userSelector";
+import { DefaultRootState } from '../../../services/store';
+import { TFullPriceElement } from "../../../types/types";
+
 
 function BurgerFullPrice() {
   const ingredientsConstructor = useSelector(
-    (store) => store.currentIngredients
+    (store : DefaultRootState) =>  store.currentIngredients
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +37,7 @@ function BurgerFullPrice() {
   const priceOfBurger = useMemo(() => {
     const priceOfBun = burgerBun?.price || 0;
     const priceOfFilling = burgerInfill.reduce(
-      (acc, item) => acc + item.price,
+      (acc: number, item: TFullPriceElement) => acc + item.price,
       0
     );
 

@@ -1,13 +1,13 @@
 import styles from "./app.module.css";
 import React from "react";
-import AppHeader from "../../components/AppHeader/AppHeader";
+import AppHeader from "../AppHeader/AppHeader";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Reg } from "../../pages/Registration";
 import { Log } from "../../pages/Login";
 import { Home } from "../../pages/Home";
 import { ForgotPassword } from "../../pages/ForgotPassword";
 import { ResetPassword } from "../../pages/ResetPassword";
-import { ProfileButton } from "../../components/Profile/ProfileButton/ProfileButton";
+import { ProfileButton } from "../Profile/ProfileButton/ProfileButton";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { ProfileInputFields } from "../../pages/ProfileInputFields";
 import Modal from "../Modal/Modal";

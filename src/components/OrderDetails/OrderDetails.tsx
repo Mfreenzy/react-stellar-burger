@@ -3,17 +3,19 @@ import styles from "./OrderDetails.module.css";
 import done from "../../images/done.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerOrder } from "../../services/actions/orderAction";
+import { TIngredient } from "../../types/types";
+import { DefaultRootState } from "../../services/store";
 
 const OrderDetails = () => {
   // const [order, setOrder] = React.useState(null);
   // const [error, setError] = React.useState(null);
   const ingredientsConstructor = useSelector(
-    (store) => store.currentIngredients
+    (store:DefaultRootState) => store.currentIngredients
   );
 
   function getListIdIngredients() {
     const idBun = [ingredientsConstructor.bun?._id];
-    const idOther = ingredientsConstructor.other?.map((item) => item._id);
+    const idOther = ingredientsConstructor.other?.map((item:TIngredient) => item._id);
     const ingrIDs = idBun.concat(idOther, idBun);
     return ingrIDs;
   }
@@ -26,7 +28,7 @@ const OrderDetails = () => {
   }, [dispatch]);
 
   const { orderNumber, orderRequest, orderFailed } = useSelector(
-    (store) => store.order
+    (store:DefaultRootState) => store.order
   );
 
   console.log(orderRequest);

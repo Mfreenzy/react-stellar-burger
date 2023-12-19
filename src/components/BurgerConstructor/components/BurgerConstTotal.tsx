@@ -1,13 +1,17 @@
 import React from "react";
 import styles from "./BurgerConstTotal.module.css";
-import { BurgerConstCard } from "../components/BurgerConstCard";
+import { BurgerConstCard } from "./BurgerConstCard";
 import { useDispatch, useSelector } from "react-redux";
 import update from "immutability-helper";
 import { moveFilling } from "../../../services/actions/currentIngredientsActions";
+import { TIngredient } from "../../../types/types";
+import { DefaultRootState } from '../../../services/store'
+import { BurgerConstTotalProps } from "../../../types/types";
 
-function BurgerConstTotal() {
+
+function BurgerConstTotal({ burgerInfill }: BurgerConstTotalProps) {
   const ingredientsConstructor = useSelector(
-    (store) => store.currentIngredients
+    (store : DefaultRootState) => store.currentIngredients
   );
   const other = ingredientsConstructor.other;
 
@@ -25,7 +29,7 @@ function BurgerConstTotal() {
 
   return (
     <ul className={`${styles.burgerConstTotal} custom-scroll`}>
-      {other.map((item, i) => (
+      {other.map((item:TIngredient, i:number) => (
         <BurgerConstCard
           item={item}
           key={item.key}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, ForwardedRef } from "react";
 import styles from "./ingredientCards.module.css";
 import CardList from "./CardList";
 import Modal from "../../Modal/Modal";
@@ -10,12 +10,14 @@ import {
 } from "../../../services/actions/currentIngredientActions";
 import stylesTab from "../components/IngredientTabs.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { DefaultRootState } from "../../../services/store";
+import { TIngredient } from "../../../types/types";
 
 const IngredientCards = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
-  const handleOpenModal = (ingredient) => {
+  const handleOpenModal = (ingredient:TIngredient) => {
     dispatch(setIngredientDetails(ingredient));
     setVisible(true);
   };
@@ -25,7 +27,7 @@ const IngredientCards = () => {
     setVisible(false);
   };
 
-  const setTab = (tab) => {
+  const setTab = (tab: string) => {
     setCurrentTab(tab);
     const element = document.getElementById(tab);
     if (element) {
@@ -33,9 +35,9 @@ const IngredientCards = () => {
     }
   };
 
-  const { ingredients } = useSelector((store) => store.allIngredients);
-  const filtered = (type) => {
-    return ingredients.filter((item) => item.type === type);
+  const { ingredients } = useSelector((store:DefaultRootState) => store.allIngredients);
+  const filtered = (type:string) => {
+    return ingredients.filter((item:TIngredient) => item.type === type);
   };
 
   const [filteredIngredients, setFilteredIngredients] = React.useState({
@@ -55,15 +57,16 @@ const IngredientCards = () => {
   );
 
   const [currentTab, setCurrentTab] = React.useState("buns");
-  const tabsRef = React.useRef();
-  const mainsRef = React.useRef();
-  const bunsRef = React.useRef();
-  const saucesRef = React.useRef();
+  const tabsRef = useRef<HTMLParagraphElement>(null);
+  const mainsRef = useRef<HTMLParagraphElement>(null);
+  const bunsRef = useRef<HTMLParagraphElement>(null);
+  const saucesRef = useRef<HTMLParagraphElement>(null);
 
   function handleScrollList() {
     const tabsBottom = tabsRef.current?.getBoundingClientRect().bottom;
     const bunsTop = bunsRef.current?.getBoundingClientRect().top;
     const saucesTop = saucesRef.current?.getBoundingClientRect().top;
+
     const mainsTop = mainsRef.current?.getBoundingClientRect().top;
 
     if (!tabsBottom || !bunsTop || !saucesTop || !mainsTop) {

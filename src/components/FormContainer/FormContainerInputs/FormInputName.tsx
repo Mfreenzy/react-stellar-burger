@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../../services/actions/inputsActions";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { selectedUserName } from "../../../services/selectors/inputsSelectors";
-import PropTypes from "prop-types";
 
 export function FormInputName({placeholder = 'Имя'}) {
 
@@ -25,7 +24,3 @@ export function FormInputName({placeholder = 'Имя'}) {
       />
     )
   }
-
-  FormInputName.propTypes = {
-    placeholder: PropTypes.string.isRequired,
-  };

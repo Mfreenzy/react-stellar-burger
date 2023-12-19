@@ -1,8 +1,12 @@
 import React from "react";
 import styles from "./ModalOverlay.module.css";
-import PropTypes from "prop-types";
 
-function ModalOverlay({onClick}) {
+
+interface ModalOverlayProps {
+    onClick: React.MouseEventHandler<HTMLDivElement>;
+}
+
+function ModalOverlay({ onClick }: ModalOverlayProps) {
     return (
         <div className={styles.overlay} onClick={onClick}>
 
@@ -10,8 +14,5 @@ function ModalOverlay({onClick}) {
     )
 }
 
-ModalOverlay.propTypes = {
-    onClick: PropTypes.func.isRequired
-};
 
 export default ModalOverlay

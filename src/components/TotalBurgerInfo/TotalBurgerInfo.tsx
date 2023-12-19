@@ -1,11 +1,15 @@
 import React from "react";
 import styles from "../TotalBurgerInfo/TotalBurgerInfo.module.css";
 import { useSelector } from "react-redux";
+import { DefaultRootState } from "../../services/store";
+import { TOrder } from "../../types/types";
+
+
 
 function TotalBurgerInfo() {
-  const { orders, total, totalToday } = useSelector((store) => store.feed);
-  const CompletedOrders = orders.filter((i) => i.status === "done");
-  const ProcessingOrders = orders.filter((i) => i.status !== "done");
+  const { orders, total, totalToday } = useSelector((store:DefaultRootState) => store.feed);
+  const CompletedOrders = orders.filter((i:TOrder) => i.status === "done");
+  const ProcessingOrders = orders.filter((i: TOrder) => i.status !== "done");
   console.log(CompletedOrders);
   console.log(ProcessingOrders);
 
@@ -15,7 +19,7 @@ function TotalBurgerInfo() {
         <section>
           <p className="text text_type_main-medium pb-6">Приготовлены:</p>
           <ul className={`${styles.TBIListColor}`}>
-            {CompletedOrders.map((order, index) => {
+            {CompletedOrders.map((order:TOrder, index:number) => {
               if (index < 50) {
                 return (
                   <li className={`${styles.TBIDigits}`} key={order._id}>
@@ -35,7 +39,7 @@ function TotalBurgerInfo() {
         <section>
           <p className="text text_type_main-medium pb-6">В работе:</p>
           <ul className={`${styles.TBIList}`}>
-            {ProcessingOrders.map((order, index) => {
+            {ProcessingOrders.map((order:TOrder, index:number) => {
               if (index < 30) {
                 return (
                   <li className={`${styles.TBIDigits}`} key={order._id}>
