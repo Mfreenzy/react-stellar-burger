@@ -12,8 +12,7 @@ export function Log() {
     const pass = useSelector(selectedPassword);
 
     
-    function onClick(evt) {
-      evt.preventDefault()
+    function onClick() {
       dispatch(login(email, pass))
     }
   

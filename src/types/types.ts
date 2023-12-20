@@ -97,3 +97,8 @@ export type TWSMessage = {
   total: number;
   totalToday: number;
 };
+
+export type NavigateButtonProps = {
+  onClick: () => void;
+  label: string;
+}

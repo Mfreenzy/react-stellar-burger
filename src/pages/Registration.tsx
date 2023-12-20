@@ -16,8 +16,7 @@ export function Reg() {
   const name = useSelector(selectedUserName);
   const pass = useSelector(selectedPassword);
 
-  function onClick(evt) {
-    evt.preventDefault();
+  function onClick() {
     Register(name, pass, email);
     dispatch(login(email, pass));
   }
@@ -36,7 +35,6 @@ export function Reg() {
       inputs={registerInputs}
       button={registerButton}
       links={registerFooterLinks}
-      name="formRegister"
     />
   );
 }

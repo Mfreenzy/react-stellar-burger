@@ -4,16 +4,16 @@ import { FormContainerOther } from "../components/FormContainer/FormContainer";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { postApiReset } from "../utils/api";
+import { DefaultRootState } from "../services/store";
 
 
 export function ResetPassword() {
    
     const navigate = useNavigate()
-    const password = useSelector((store) => store.inputs.password)
-    const token = useSelector((store) => store.inputs.token)
+    const password = useSelector((store:DefaultRootState) => store.inputs.password)
+    const token = useSelector((store:DefaultRootState) => store.inputs.token)
 
-    function onClick(evt) {
-        evt.preventDefault();
+    function onClick() {
         postApiReset(password, token)
         navigate('/login', {replace:false})
     }

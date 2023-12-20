@@ -5,12 +5,12 @@ import { Inputs } from "../../utils/InputsAndLinks/IAL";
 import { Links } from "../../utils/InputsAndLinks/IAL";
 
 interface FormContainerProps {
-  header: string;
-  inputs: string[];
-  links: string[];
-  button: string;
-  handleSubmit: () => void; // Replace '() => void' with the actual type of your handleSubmit function
-  handleReset: () => void; // Replace '() => void' with the actual type of your handleReset function
+  header?: string;
+  inputs: JSX.Element[];
+  links?: JSX.Element[];
+  button: JSX.Element[] | JSX.Element;
+  handleSubmit?: () => void; // Replace '() => void' with the actual type of your handleSubmit function
+  handleReset?: () => void; // Replace '() => void' with the actual type of your handleReset function
 }
 
 export function FormContainerOther({header, inputs, links, button}:FormContainerProps) {
@@ -23,7 +23,7 @@ export function FormContainerOther({header, inputs, links, button}:FormContainer
         <form >
           <fieldset className={styles.formFieldset}>
             <div className={`${styles.formInputs}`}>
-              {[...inputs]}
+              {inputs}
             </div>
             <div className={`${styles.buttonExtra}`}>
               {button}
@@ -31,7 +31,7 @@ export function FormContainerOther({header, inputs, links, button}:FormContainer
           </fieldset>
         </form>
         <div className={`${styles.formLinks}`}>
-          {[...links]}
+          {links}
         </div>
       </section>
     )

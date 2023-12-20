@@ -7,28 +7,28 @@ import { FormFooterLinks } from "../../components/FormContainer/FormContainerLin
 import styles from "../../components/FormContainer/FormContainer.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormInputToken } from "../../components/FormContainer/FormContainerInputs/FormInputToken";
+import { NavigateButtonProps } from "../../types/types";
 
 //Все типы инпутов, используемых в проекте
 export const Inputs = {
     //1. Электронная почта 
-    email: <FormInputEmail placeholder="E-mail" key="email" name="email" />,
+    email: <FormInputEmail placeholder="E-mail" key="email" />,
     //2. Пароль
-    password: <FormInputPassword placeholder="Пароль" key="password" name="password" />,
+    password: <FormInputPassword placeholder="Пароль"  key="password"/>,
     //3. Новый пароль при восстановлении
-    newPassword: <FormInputPassword placeholder="Введите новый пароль" key="newPassword" name="newPassword" />,
+    newPassword: <FormInputPassword placeholder="Введите новый пароль" key="newPassword"/>,
     //4. Проверочный код, полученный на E-mail, указанный при регистрации
-    token: <FormInputToken placeholder="Введите проверочный код из письма" key="token" name="token" />,
+    token: <FormInputToken placeholder="Введите проверочный код из письма" key="token"/>,
     //5. Имя пользователя
-    name: <FormInputName placeholder="Имя" key="name" name="name" />,
+    name: <FormInputName placeholder="Имя" key="name"/>,
     //6. Ввод E-mail, для восстановления пароля, получения проверочного кода. 
-    specifyEmail: <FormInputEmail placeholder="Введите E-mail" key="specifyEmail" name="specifyEmail" />,
+    specifyEmail: <FormInputEmail placeholder="Введите E-mail" key="specifyEmail"/>,
     //7. Ввод имени в профиле.
-    profileName: <FormInputName placeholder="Имя" key='name' name='name' disabled={true}/>,
+    profileName: <FormInputName placeholder="Имя" key='name'/>,
     //8. Ввод почты в профиле.
-    profileEmail: <FormInputEmail placeholder="E-mail" key='email' name='email'/>,
+    profileEmail: <FormInputEmail placeholder="E-mail" key='email'/>,
     //9. Ввод пароля в профиле. 
-    profilePassword: <FormInputPassword placeholder="Пароль" key='password' name='password' />
-
+    profilePassword: <FormInputPassword placeholder="Пароль" key='password'/>
 }
 
 //Все типы подвальных ссылок, используемых в работе
@@ -44,7 +44,7 @@ export const Links = {
 }
 
 //Большая кнопка
-export const navigateButton = ({onClick, label}) => {
+export const navigateButton = ({onClick, label}: NavigateButtonProps) => {
     return <Button htmlType="submit" type="primary" size="medium" children={label} onClick={onClick}/>
   }
 

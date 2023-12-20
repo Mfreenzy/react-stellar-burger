@@ -46,14 +46,12 @@ export const ProfileInputFields = () => {
 
   console.log("isRedact", isRedact);
 
-  function handleReset(evt) {
-    evt.preventDefault();
+  function handleReset() {
     dispatch(getUser());
     console.log("isRedact", isRedact);
   }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
+  function handleSubmit() {
     dispatch(getUser());
     if (isRedact) {
       dispatch(updateUser(emailInput, nameInput, passwordInput));
