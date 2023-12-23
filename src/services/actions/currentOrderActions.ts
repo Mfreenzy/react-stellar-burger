@@ -1,31 +1,54 @@
+import { TOrder } from "../../types/types";
 import { BASE_URL } from "../../utils/BaseURL";
 import { checkResponse } from "../../utils/BaseURL";
+import { AppThunk } from "../../types/thunk";
 
 export const SET_CURRENT_ORDER = "SET_CURRENT_ORDER";
 export const CLEAR_CURRENT_ORDER = "CLEAR_CURRENT_ORDER";
 export const SET_CURRENT_ORDER_ERROR = "SET_CURRENT_ORDER_ERROR";
 
-export function setCurrent(order) {
+export type SetCurrentOrderAction = {
+  type: typeof SET_CURRENT_ORDER;
+  payload: TOrder;
+}
+
+export type ClearCurrentOrderAction = {
+  type: typeof CLEAR_CURRENT_ORDER;
+}
+
+export type SetCurrentOrderErrorAction = {
+  type: typeof SET_CURRENT_ORDER_ERROR;
+  payload: string;
+}
+
+export type TCurrentOrderActions = 
+    | SetCurrentOrderAction
+    | ClearCurrentOrderAction
+    | SetCurrentOrderErrorAction
+
+
+export function setCurrent(order: TOrder): SetCurrentOrderAction {
   return {
     type: SET_CURRENT_ORDER,
     payload: order,
   };
 }
 
-export function clearCurrentOrder() {
+export function clearCurrentOrder(): ClearCurrentOrderAction {
   return {
     type: CLEAR_CURRENT_ORDER,
   };
 }
 
-export function getCurrentOrder(number) {
+export const getCurrentOrder = (number:number):AppThunk => {
   console.log(number);
-  return function (dispatch) {
+  return (dispatch) => {
+    const accessToken: string | null = localStorage.getItem("accessToken");
     return fetch(`${BASE_URL}/orders/${number}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("accessToken"),
+        authorization: accessToken!,
       },
     })
       .then((res) => checkResponse(res))

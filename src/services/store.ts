@@ -3,6 +3,7 @@ import { feedMiddleware } from './reducers/rootReducers';
 import { profileFeedMiddleware } from './reducers/rootReducers';
 import rootReducer from './reducers/rootReducers';
 
+
 const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {

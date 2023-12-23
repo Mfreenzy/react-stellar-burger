@@ -4,8 +4,9 @@ import { POST_PASSWORD_RESET_ENDPOINT } from "./BaseURL";
 import { POST_RESET_ENDPOINT } from "./BaseURL";
 import { setUser } from "../services/actions/userActions";
 import { fetchWithRefresh } from "./reset-api";
+import { AppThunk } from "../types/thunk";
 
-export const Register = (name, pass, email) => {
+export const Register = (name:string, pass:string, email:string) => {
   return fetch(POST_REGISTER_ENDPOINT, {
     method: "POST",
     headers: {
@@ -30,7 +31,7 @@ export const Register = (name, pass, email) => {
     });
 };
 
-export const forgotPassword = (email) => {
+export const forgotPassword = (email:string) => {
   return fetch(POST_PASSWORD_RESET_ENDPOINT, {
     method: "POST",
     headers: {
@@ -42,18 +43,18 @@ export const forgotPassword = (email) => {
   }).then((res) => checkResponse(res));
 };
 
-export function postApiResetPassword(email) {
+export function postApiResetPassword(email:string) {
   forgotPassword(email)
     .then((res) => {
       console.log(res);
-      localStorage.setItem("resetPasswordFlag", true);
+      localStorage.setItem("resetPasswordFlag", String(true));
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-export const resetPassword = (newPassword, token) => {
+export const resetPassword = (newPassword:string, token:string) => {
   return fetch(POST_RESET_ENDPOINT, {
     method: "POST",
     headers: {
@@ -66,7 +67,7 @@ export const resetPassword = (newPassword, token) => {
   }).then((res) => checkResponse(res));
 };
 
-export function postApiReset(newPassword, token) {
+export function postApiReset(newPassword:string, token:string) {
   resetPassword(newPassword, token)
     .then((res) => {
       console.log(res);
@@ -79,7 +80,7 @@ export function postApiReset(newPassword, token) {
 
 //6. Обновление данных пользователя.
 
-export const updateUser = (email, name, password) => {
+export const updateUser = (email:string, name:string, password:string):AppThunk => {
   return (dispatch) => {
     return fetchWithRefresh(PROFILE_ENDPOINT, {
       method: "PATCH",

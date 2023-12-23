@@ -12,7 +12,7 @@ export type TIngredient = {
   _id: string;
   id?: string;
   index: number;
-  key: number;
+  key: string;
 };
 
 export type TOrder = {
@@ -101,4 +101,9 @@ export type TWSMessage = {
 export type NavigateButtonProps = {
   onClick: () => void;
   label: string;
-}
+};
+
+export type TUser = {
+  email: string;
+  name: string;
+};

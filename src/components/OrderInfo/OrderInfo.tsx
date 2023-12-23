@@ -47,7 +47,7 @@ export default function OrderInfo() {
     }
   };
 
-  const order = useSelector(orderFinder(number as string));
+  const order = useSelector(orderFinder(number!));
 
   console.log("order", order);
 
@@ -56,8 +56,8 @@ export default function OrderInfo() {
   console.log(ingredients);
 
   useEffect(() => {
-    if (!order) {
-      dispatch(getCurrentOrder(number));
+    if (number !== undefined && !order) {
+      dispatch(getCurrentOrder(+number));
     }
   }, [dispatch, order, number]);
 

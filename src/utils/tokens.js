@@ -9,7 +9,7 @@ import { fetchWithRefresh } from "./reset-api";
 // В проектной работе эта функция будет обращаться к серверу
 // и обновлять токены если они уже устарели.
 const getUser = () => {
-  return fetch(PROFILE_ENDPOINT, {
+  return fetch(PROFILE_ENDPOINT, { 
     method: "GET",
     headers: {
       "Content-Type": "application/json",
