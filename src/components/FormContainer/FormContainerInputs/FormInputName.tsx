@@ -1,14 +1,14 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import { addUser } from "../../../services/actions/inputsActions";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { selectedUserName } from "../../../services/selectors/inputsSelectors";
 
 export function FormInputName({placeholder = 'Имя'}) {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const inputRef = React.useRef(null)
-    const nameValue = useSelector(selectedUserName) ?? '';
+    const nameValue = useAppSelector(selectedUserName) ?? '';
 
     return (
       <Input

@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../services/store";
 import { logout } from "../../../services/actions/userActions";
 import { NavLink, Outlet, useMatch } from "react-router-dom";
 import styles from "../ProfileButton/ProfileButton.module.css";
 
 export function ProfileButton() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isProfileActive = useMatch("/profile");
   const isProfileOrderActive = useMatch("/profile/orders");
 

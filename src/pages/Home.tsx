@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../components/app/app.module.css";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../services/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {
@@ -13,7 +13,7 @@ import { DefaultRootState } from "../services/store";
 import { TIngredient } from "../types/types";
 
 export function Home() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
       const handleDrop = (item:TIngredient) => {
         if (item.type === "bun") {
@@ -23,7 +23,7 @@ export function Home() {
         }
       };
     
-      const { isLoading, ingredients, hasError } = useSelector(
+      const { isLoading, ingredients, hasError } = useAppSelector(
         (store:DefaultRootState) => store.allIngredients
       );
     

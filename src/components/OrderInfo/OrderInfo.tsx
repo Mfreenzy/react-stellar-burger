@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../services/store";
 import { getCurrentOrder } from "../../services/actions/currentOrderActions";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useMemo } from "react";
@@ -15,7 +15,7 @@ import { DefaultRootState } from "../../services/store";
 
 
 export default function OrderInfo() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const { number } = useParams();
 
@@ -47,11 +47,11 @@ export default function OrderInfo() {
     }
   };
 
-  const order = useSelector(orderFinder(number!));
+  const order = useAppSelector(orderFinder(number!));
 
   console.log("order", order);
 
-  const ingredients = useSelector(allIngredientsArray);
+  const ingredients = useAppSelector(allIngredientsArray);
 
   console.log(ingredients);
 

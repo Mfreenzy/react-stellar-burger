@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./BurgerConstTotal.module.css";
 import { BurgerConstCard } from "./BurgerConstCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import update from "immutability-helper";
 import { moveFilling } from "../../../services/actions/currentIngredientsActions";
 import { TIngredient } from "../../../types/types";
@@ -10,12 +10,12 @@ import { BurgerConstTotalProps } from "../../../types/types";
 
 
 function BurgerConstTotal({ burgerInfill }: BurgerConstTotalProps) {
-  const ingredientsConstructor = useSelector(
+  const ingredientsConstructor = useAppSelector(
     (store : DefaultRootState) => store.currentIngredients
   );
   const other = ingredientsConstructor.other;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const moveCard = React.useCallback((dragIndex, hoverIndex, other) => {
     const newOther = update(other, {
       $splice: [

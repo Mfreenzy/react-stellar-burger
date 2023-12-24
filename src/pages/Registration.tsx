@@ -1,7 +1,7 @@
 import React from "react";
 import { navigateButton, Inputs, Links } from "../utils/InputsAndLinks/IAL";
 import { FormContainerOther } from "../components/FormContainer/FormContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../services/store";
 import {
   selectedEmail,
   selectedPassword,
@@ -11,10 +11,10 @@ import {login } from "../services/actions/userActions";
 import { Register } from "../utils/api";
 
 export function Reg() {
-  const dispatch = useDispatch();
-  const email = useSelector(selectedEmail);
-  const name = useSelector(selectedUserName);
-  const pass = useSelector(selectedPassword);
+  const dispatch = useAppDispatch();
+  const email = useAppSelector(selectedEmail);
+  const name = useAppSelector(selectedUserName);
+  const pass = useAppSelector(selectedPassword);
 
   function onClick() {
     Register(name, pass, email);

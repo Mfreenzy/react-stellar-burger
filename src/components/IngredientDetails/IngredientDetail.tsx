@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./IngredientDetail.module.css";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/store";
 import { useParams, useLocation } from "react-router-dom";
 import { allIngredientsArray } from "../../services/selectors/ingredientsSelectors";
 import { TIngredient } from "../../types/types";
@@ -15,7 +15,7 @@ function IngredientDetail() {
 
     console.log("ingredientId", ingredientId)
    
-    const Array1 = useSelector(allIngredientsArray)
+    const Array1 = useAppSelector(allIngredientsArray)
     console.log(Array1)
 
     const Element1 = Array1.find((ingredient:TIngredient) => ingredient._id === ingredientId)

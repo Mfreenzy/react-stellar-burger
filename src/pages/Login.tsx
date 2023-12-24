@@ -2,14 +2,14 @@ import React from "react";
 import { navigateButton, Inputs, Links } from "../utils/InputsAndLinks/IAL";
 import { FormContainerOther } from "../components/FormContainer/FormContainer";
 import { selectedEmail, selectedPassword } from "../services/selectors/inputsSelectors";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../services/store";
 import { login } from "../services/actions/userActions";
 
 
 export function Log() {
-    const dispatch = useDispatch()
-    const email = useSelector(selectedEmail);
-    const pass = useSelector(selectedPassword);
+    const dispatch = useAppDispatch()
+    const email = useAppSelector(selectedEmail);
+    const pass = useAppSelector(selectedPassword);
     
     function onClick() {
       dispatch(login(email, pass))

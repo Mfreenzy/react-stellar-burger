@@ -1,14 +1,14 @@
 import React from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { token } from "../../../services/actions/inputsActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import { DefaultRootState } from "../../../services/store";
 
 export function FormInputToken({placeholder}: {placeholder: string}) {
     
-  const tokenValue = useSelector((store:DefaultRootState) => store.inputs.token)
+  const tokenValue = useAppSelector((store:DefaultRootState) => store.inputs.token)
   const inputRef = React.useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <Input

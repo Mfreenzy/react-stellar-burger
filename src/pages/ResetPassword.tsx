@@ -2,7 +2,7 @@ import React from "react";
 import { navigateButton, Inputs, Links } from "../utils/InputsAndLinks/IAL";
 import { FormContainerOther } from "../components/FormContainer/FormContainer";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../services/store";
 import { postApiReset } from "../utils/api";
 import { DefaultRootState } from "../services/store";
 
@@ -10,8 +10,8 @@ import { DefaultRootState } from "../services/store";
 export function ResetPassword() {
    
     const navigate = useNavigate()
-    const password = useSelector((store:DefaultRootState) => store.inputs.password)
-    const token = useSelector((store:DefaultRootState) => store.inputs.token)
+    const password = useAppSelector((store:DefaultRootState) => store.inputs.password)
+    const token = useAppSelector((store:DefaultRootState) => store.inputs.token)
 
     function onClick() {
         postApiReset(password, token)

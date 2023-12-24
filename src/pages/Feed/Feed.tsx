@@ -4,13 +4,13 @@ import TotalBurgerInfo from "../../components/TotalBurgerInfo/TotalBurgerInfo";
 import { Connect, Disconnect } from "../../services/actions/feedActions";
 import Order from "../../components/Order/Order";
 import { useLocation, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useEffect } from "react";
 import { TOrder } from "../../types/types";
 import { DefaultRootState } from "../../services/store";
 
 function Feed() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const ALL_ORDERS_URL: string = "wss://norma.nomoreparties.space/orders/all";
 
@@ -21,7 +21,7 @@ function Feed() {
     };
   }, [dispatch]);
 
-  const { isLoading, error, orders } = useSelector((store:DefaultRootState) => store.feed);
+  const { isLoading, error, orders } = useAppSelector((store:DefaultRootState) => store.feed);
 
   return (
     <div className={`${styles.feedContainer}`}>

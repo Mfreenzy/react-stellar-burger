@@ -3,7 +3,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from "./BurgerCounstructor.module.css";
 import BurgerConstTotal from "./components/BurgerConstTotal";
 import BurgerFullPrice from "./components/BurgerFullPrice";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/store";
 import { useDrop } from "react-dnd";
 import { DefaultRootState } from "../../services/store";
 import { TIngredient } from "../../types/types";
@@ -14,7 +14,7 @@ interface BurgerConstructorProps {
 }
 
 const BurgerConstructor = ({onDropHandler}:BurgerConstructorProps) => {
-  const ingredientsConstructor = useSelector(
+  const ingredientsConstructor = useAppSelector(
     (store:DefaultRootState) => store.currentIngredients
   );
 

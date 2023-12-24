@@ -5,7 +5,7 @@ import {
   DeleteIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import { removeCurrentIngredient } from "../../../services/actions/currentIngredientsActions";
 import { useDrag, useDrop } from "react-dnd";
 import { TIngredient } from "../../../types/types";
@@ -19,11 +19,11 @@ export function BurgerConstCard({
   id,
   item,
 }: TFillingElement) {
-  const ingredientsConstructor = useSelector(
+  const ingredientsConstructor = useAppSelector(
     (store:DefaultRootState) => store.currentIngredients
   );
   const burgerInfill = ingredientsConstructor.other;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   function deleteCard(item:TIngredient) {
     // вызов действия, которое будет удалять элемент из состояния

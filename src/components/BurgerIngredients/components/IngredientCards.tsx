@@ -3,7 +3,7 @@ import styles from "./ingredientCards.module.css";
 import CardList from "./CardList";
 import Modal from "../../Modal/Modal";
 import IngredientDetail from "../../IngredientDetails/IngredientDetail";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import {
   setIngredientDetails,
   clearIngredientDetails,
@@ -15,7 +15,7 @@ import { TIngredient } from "../../../types/types";
 
 const IngredientCards = () => {
   const [visible, setVisible] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleOpenModal = (ingredient:TIngredient) => {
     dispatch(setIngredientDetails(ingredient));
@@ -35,7 +35,7 @@ const IngredientCards = () => {
     }
   };
 
-  const { ingredients } = useSelector((store:DefaultRootState) => store.allIngredients);
+  const { ingredients } = useAppSelector((store:DefaultRootState) => store.allIngredients);
   const filtered = (type:string) => {
     return ingredients.filter((item:TIngredient) => item.type === type);
   };

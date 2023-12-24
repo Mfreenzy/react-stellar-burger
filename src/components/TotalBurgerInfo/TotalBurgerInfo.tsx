@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "../TotalBurgerInfo/TotalBurgerInfo.module.css";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/store";
 import { DefaultRootState } from "../../services/store";
 import { TOrder } from "../../types/types";
 
 
 
 function TotalBurgerInfo() {
-  const { orders, total, totalToday } = useSelector((store:DefaultRootState) => store.feed);
+  const { orders, total, totalToday } = useAppSelector((store:DefaultRootState) => store.feed);
   const CompletedOrders = orders.filter((i:TOrder) => i.status === "done");
   const ProcessingOrders = orders.filter((i: TOrder) => i.status !== "done");
   console.log(CompletedOrders);

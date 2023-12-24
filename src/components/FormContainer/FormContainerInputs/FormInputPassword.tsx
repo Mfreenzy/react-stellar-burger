@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import { addPassword } from "../../../services/actions/inputsActions";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { selectedPassword } from "../../../services/selectors/inputsSelectors";
@@ -12,8 +12,8 @@ enum IconType {
 
 export function FormInputPassword({placeholder = 'Пароль'}) {
 
-    const passwordValue = useSelector(selectedPassword)
-    const dispatch = useDispatch();
+    const passwordValue = useAppSelector(selectedPassword)
+    const dispatch = useAppDispatch();
   
     const [iconP, setIconP] = React.useState<IconType>(IconType.ShowIcon);
     const inputRef = React.useRef<HTMLInputElement>(null)

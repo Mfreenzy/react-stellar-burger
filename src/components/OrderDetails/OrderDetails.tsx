@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./OrderDetails.module.css";
 import done from "../../images/done.svg";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { getBurgerOrder } from "../../services/actions/orderAction";
 import { TIngredient } from "../../types/types";
 import { DefaultRootState } from "../../services/store";
@@ -9,7 +9,7 @@ import { DefaultRootState } from "../../services/store";
 const OrderDetails = () => {
   // const [order, setOrder] = React.useState(null);
   // const [error, setError] = React.useState(null);
-  const ingredientsConstructor = useSelector(
+  const ingredientsConstructor = useAppSelector(
     (store:DefaultRootState) => store.currentIngredients
   );
 
@@ -21,14 +21,14 @@ const OrderDetails = () => {
   }
   const componentsID = getListIdIngredients();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const definedComponentsID = componentsID.filter((id): id is string => typeof id === "string");
     dispatch(getBurgerOrder(definedComponentsID));
   }, [dispatch]);
 
-  const { orderNumber, orderRequest, orderFailed } = useSelector(
+  const { orderNumber, orderRequest, orderFailed } = useAppSelector(
     (store:DefaultRootState) => store.order
   );
 

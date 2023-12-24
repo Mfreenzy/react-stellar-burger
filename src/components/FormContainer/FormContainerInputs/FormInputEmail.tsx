@@ -1,14 +1,14 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import { selectedEmail } from "../../../services/selectors/inputsSelectors";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { addEmail } from "../../../services/actions/inputsActions";
 
 export function FormInputEmail({placeholder = "E-mail"}) {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const inputRef = React.useRef(null)
-    const emailValue = useSelector(selectedEmail) ?? '';
+    const emailValue = useAppSelector(selectedEmail) ?? '';
   
     return (
       <Input

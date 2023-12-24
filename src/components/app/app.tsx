@@ -15,13 +15,13 @@ import IngredientDetail from "../IngredientDetails/IngredientDetail";
 import Orders from "../../pages/Orders/Orders";
 import Feed from "../../pages/Feed/Feed";
 import OrderInfo from "../OrderInfo/OrderInfo";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../services/store";
 import { getBurgerIngredients } from "../../services/actions/ingredientActions";
 import { checkUserAuth } from "../../services/actions/userActions";
 
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;

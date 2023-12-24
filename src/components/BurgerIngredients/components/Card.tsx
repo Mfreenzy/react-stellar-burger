@@ -4,7 +4,7 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import {
   addCurrentBun,
   addCurrentIngredient,
@@ -18,8 +18,8 @@ import { TCardElement } from "../../../types/types";
 
 function Card({ item, onClick }: TCardElement) {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const ingredientsConstructor = useSelector(
+  const dispatch = useAppDispatch();
+  const ingredientsConstructor = useAppSelector(
     (store:DefaultRootState) => store.currentIngredients
   );
 

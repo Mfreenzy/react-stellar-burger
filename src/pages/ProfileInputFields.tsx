@@ -1,7 +1,7 @@
 import React from "react";
 import { Buttons, Inputs } from "../utils/InputsAndLinks/IAL";
 import { FormContainerUser } from "../components/FormContainer/FormContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../services/store";
 import { updateUser} from "../utils/api";
 import { getUser } from "../services/actions/userActions";
 import { Name, Email } from "../services/selectors/userSelector";
@@ -17,9 +17,9 @@ import {
 } from "../services/selectors/inputsSelectors";
 
 export const ProfileInputFields = () => {
-  const dispatch = useDispatch();
-  const nameValue = useSelector(Name);
-  const emailValue = useSelector(Email);
+  const dispatch = useAppDispatch();
+  const nameValue = useAppSelector(Name);
+  const emailValue = useAppSelector(Email);
 
   function setValue() {
     dispatch(getUser());
@@ -32,9 +32,9 @@ export const ProfileInputFields = () => {
     setValue();
   }, [nameValue, emailValue]);
 
-  const nameInput = useSelector(selectedUserName);
-  const emailInput = useSelector(selectedEmail);
-  const passwordInput = useSelector(selectedPassword);
+  const nameInput = useAppSelector(selectedUserName);
+  const emailInput = useAppSelector(selectedEmail);
+  const passwordInput = useAppSelector(selectedPassword);
 
   let isRedactName = nameValue !== nameInput;
   let isRedactEmail = emailValue !== emailInput;

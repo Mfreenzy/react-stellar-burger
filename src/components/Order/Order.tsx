@@ -3,7 +3,7 @@ import styles from "../Order/Order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { allIngredientsArray } from "../../services/selectors/ingredientsSelectors";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/store";
 import { useMatch } from "react-router-dom";
 import { TIngredient } from "../../types/types";
 import { TOrder } from "../../types/types";
@@ -13,7 +13,7 @@ interface OrderProps {
 }
 
 function Order({ order }: OrderProps) {
-  const ingredients = useSelector(allIngredientsArray);
+  const ingredients = useAppSelector(allIngredientsArray);
   const isProfileOrder = useMatch("/profile/orders");
   const orderIngredients = React.useMemo(() => {
     if (order?.ingredients && Array.isArray(ingredients)) {

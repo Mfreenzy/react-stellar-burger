@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import styles from "./Orders.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useLocation, Link } from "react-router-dom";
 import { connect, disconnect } from "../../services/actions/profileFeedAction";
 import Order from "../../components/Order/Order";
 import { DefaultRootState } from "../../services/store";
 
 function Orders() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
-  const { isLoading, error, orders } = useSelector(
+  const { isLoading, error, orders } = useAppSelector(
     (store:DefaultRootState) => store.profileFeed
   );
 

@@ -4,7 +4,7 @@ import styles from "./BurgerFullPrice.module.css";
 import icon from "../../../images/icon36x36.svg";
 import Modal from "../../Modal/Modal";
 import OrderDetails from "../../OrderDetails/OrderDetails";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../../services/store";
 import { clearCurrentIngredients } from "../../../services/actions/currentIngredientsActions";
 import { resetOrder } from "../../../services/actions/orderAction";
 import { useNavigate } from "react-router-dom";
@@ -14,12 +14,12 @@ import { TIngredient } from "../../../types/types";
 
 
 function BurgerFullPrice() {
-  const ingredientsConstructor = useSelector(
+  const ingredientsConstructor = useAppSelector(
     (store : DefaultRootState) =>  store.currentIngredients
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useSelector(User)
+  const user = useAppSelector(User)
   const burgerInfill = ingredientsConstructor.other;
   const burgerBun = ingredientsConstructor.bun;
   const [fullPriceModal, setFullPriceModal] = useState(false);
