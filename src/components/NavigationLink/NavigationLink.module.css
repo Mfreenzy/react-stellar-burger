@@ -10,3 +10,7 @@
     white-space: nowrap;
     padding-left: 8px;
 }
+
+.active {
+    color:inherit;
+}
