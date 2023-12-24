@@ -17,7 +17,7 @@ function Order({ order }: OrderProps) {
   const isProfileOrder = useMatch("/profile/orders");
   const orderIngredients = React.useMemo(() => {
     if (order?.ingredients && Array.isArray(ingredients)) {
-      return order.ingredients.map((ingredientId: string) => {
+      return order.ingredients.map((ingredientId) => {
         return ingredients.find(
           (ingredient) => ingredientId === ingredient._id
         );
@@ -34,9 +34,7 @@ function Order({ order }: OrderProps) {
 
   const OrderPrice = () => {
     return orderIngredients?.reduce(
-      (acc: number, i: TIngredient) => acc + i.price,
-      0
-    );
+      (acc: number, i?: TIngredient) => i ? acc + i.price : acc, 0);
   };
 
   return (
@@ -76,13 +74,13 @@ function Order({ order }: OrderProps) {
 
         <div className={`${styles.orderIngredients}`}>
           <div className={`${styles.orderPictures}`}>
-            {orderIngredients.map((ingredient: TIngredient, index: number) => {
+            {orderIngredients.map((ingredient, index) => {
               if (index < 6) {
                 return (
                   <div className={`${styles.orderImageBox}`} key={index}>
                     <img
-                      alt={ingredient.name}
-                      src={ingredient.image}
+                      alt={ingredient?.name}
+                      src={ingredient?.image}
                       className={`${styles.orderPic}`}
                     />
                     {index === 5 && OrderSlice !== 0 && (

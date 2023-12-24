@@ -2,14 +2,13 @@ import { useAppSelector } from "../../services/store";
 import { Navigate, useLocation } from "react-router-dom";
 import { FC } from "react";
 import { IProtected, INotProtected } from "../../types/types";
-import { DefaultRootState } from "../../services/store";
 
 const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   // isAuthChecked это флаг, показывающий что проверка токена произведена
   // при этом результат этой проверки не имеет значения, важно только,
   // что сам факт проверки имел место.
-  const isAuthChecked = useAppSelector((store:DefaultRootState) => store.user.isAuthChecked);
-  const user = useAppSelector((store:DefaultRootState) => store.user.user);
+  const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
+  const user = useAppSelector((store) => store.user.user);
   const location = useLocation();
 
   if (!isAuthChecked) {

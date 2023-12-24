@@ -4,14 +4,13 @@ import { FormContainerOther } from "../components/FormContainer/FormContainer";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../services/store";
 import { postApiReset } from "../utils/api";
-import { DefaultRootState } from "../services/store";
 
 
 export function ResetPassword() {
    
     const navigate = useNavigate()
-    const password = useAppSelector((store:DefaultRootState) => store.inputs.password)
-    const token = useAppSelector((store:DefaultRootState) => store.inputs.token)
+    const password = useAppSelector((store) => store.inputs.password)
+    const token = useAppSelector((store) => store.inputs.token)
 
     function onClick() {
         postApiReset(password, token)

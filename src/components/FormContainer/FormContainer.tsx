@@ -11,14 +11,14 @@ interface FormContainerProps {
   handleReset?: () => void; // Replace '() => void' with the actual type of your handleReset function
 }
 
-export function FormContainerOther({header, inputs, links, button}:FormContainerProps) {
+export function FormContainerOther({header, inputs, links, button, handleSubmit, handleReset}:FormContainerProps) {
 
     return (
       <section className={`${styles.formContainer}`}>
         <p className="text text_type_main-medium">
           {header}
         </p>
-        <form >
+        <form onSubmit={handleSubmit} onReset={handleReset} >
           <fieldset className={styles.formFieldset}>
             <div className={`${styles.formInputs}`}>
               {inputs}

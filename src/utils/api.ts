@@ -7,8 +7,9 @@ import { fetchWithRefresh } from "./reset-api";
 import { AppThunk } from "../types/thunk";
 import { TRegistration } from "../types/token";
 import { TResUser } from "../types/types";
+import { login } from "../services/actions/userActions";
 
-export const Register = (name:string, pass:string, email:string) => {
+export const tRegister = (name: string, pass: string, email: string): AppThunk => (dispatch) => {
   return fetch(POST_REGISTER_ENDPOINT, {
     method: "POST",
     headers: {
@@ -19,18 +20,17 @@ export const Register = (name:string, pass:string, email:string) => {
       password: pass,
       name: name,
     }),
-  })
-    .then(checkResponse<TRegistration>)
+  }).then(checkResponse<TRegistration>)
     .then((res) => {
-      // Сохраняем accessToken и refreshToken в localStorage
-      localStorage.setItem("accessToken", res.accessToken);
-      localStorage.setItem("refreshToken", res.refreshToken);
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    });
+    // Save accessToken and refreshToken in localStorage
+    localStorage.setItem("accessToken", res.accessToken);
+    localStorage.setItem("refreshToken", res.refreshToken);
+    dispatch(login(email, pass));
+    return res;
+  }).catch((error) => {
+    console.log(error);
+    return Promise.reject(error);
+  });
 };
 
 export const forgotPassword = (email:string) => {

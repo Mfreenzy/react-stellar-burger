@@ -12,7 +12,6 @@ import {
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { TIngredient } from "../../../types/types";
-import { DefaultRootState } from "../../../services/store";
 import { TCardElement } from "../../../types/types";
 
 
@@ -20,7 +19,7 @@ function Card({ item, onClick }: TCardElement) {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const ingredientsConstructor = useAppSelector(
-    (store:DefaultRootState) => store.currentIngredients
+    (store) => store.currentIngredients
   );
 
   const ingredientId = item['_id'];

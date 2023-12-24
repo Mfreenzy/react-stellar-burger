@@ -44,12 +44,12 @@ export type TFeedActions =
 | IFeedGetMessageAction;
 
 
-export const Connect = (url:string) => ({
+export const tConnect = (url:string) => ({
     type: FEED_CONNECT,
     payload: url
 });
 
-export const Disconnect = (url:string) => ({
+export const tDisconnect = (url:string) => ({
     type: FEED_DISCONNECT,
     payload: url
 });

@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "../Feed/Feed.module.css";
 import TotalBurgerInfo from "../../components/TotalBurgerInfo/TotalBurgerInfo";
-import { Connect, Disconnect } from "../../services/actions/feedActions";
+import { tConnect, tDisconnect } from "../../services/actions/feedActions";
 import Order from "../../components/Order/Order";
 import { useLocation, Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useEffect } from "react";
 import { TOrder } from "../../types/types";
-import { DefaultRootState } from "../../services/store";
+
 
 function Feed() {
   const dispatch = useAppDispatch();
@@ -15,13 +15,13 @@ function Feed() {
   const ALL_ORDERS_URL: string = "wss://norma.nomoreparties.space/orders/all";
 
   useEffect(() => {
-    dispatch(Connect(ALL_ORDERS_URL));
+    dispatch(tConnect(ALL_ORDERS_URL));
     return () => {
-      dispatch(Disconnect(ALL_ORDERS_URL));
+      dispatch(tDisconnect(ALL_ORDERS_URL));
     };
   }, [dispatch]);
 
-  const { isLoading, error, orders } = useAppSelector((store:DefaultRootState) => store.feed);
+  const { isLoading, error, orders } = useAppSelector((store) => store.feed);
 
   return (
     <div className={`${styles.feedContainer}`}>

@@ -5,7 +5,6 @@ import BurgerConstTotal from "./components/BurgerConstTotal";
 import BurgerFullPrice from "./components/BurgerFullPrice";
 import { useAppSelector } from "../../services/store";
 import { useDrop } from "react-dnd";
-import { DefaultRootState } from "../../services/store";
 import { TIngredient } from "../../types/types";
 
 interface BurgerConstructorProps {
@@ -15,7 +14,7 @@ interface BurgerConstructorProps {
 
 const BurgerConstructor = ({onDropHandler}:BurgerConstructorProps) => {
   const ingredientsConstructor = useAppSelector(
-    (store:DefaultRootState) => store.currentIngredients
+    (store) => store.currentIngredients
   );
 
   const burgerInfill = ingredientsConstructor.other;
@@ -65,7 +64,7 @@ const BurgerConstructor = ({onDropHandler}:BurgerConstructorProps) => {
           )}
         </div>
         {burgerInfill.length > 0 && (
-          <BurgerConstTotal burgerInfill={burgerInfill} />
+          <BurgerConstTotal />
         )}
         <div className={styles.constContainer}>
           {burgerBun && (

@@ -4,13 +4,12 @@ import done from "../../images/done.svg";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { getBurgerOrder } from "../../services/actions/orderAction";
 import { TIngredient } from "../../types/types";
-import { DefaultRootState } from "../../services/store";
 
 const OrderDetails = () => {
   // const [order, setOrder] = React.useState(null);
   // const [error, setError] = React.useState(null);
   const ingredientsConstructor = useAppSelector(
-    (store:DefaultRootState) => store.currentIngredients
+    (store) => store.currentIngredients
   );
 
   function getListIdIngredients() {
@@ -29,7 +28,7 @@ const OrderDetails = () => {
   }, [dispatch]);
 
   const { orderNumber, orderRequest, orderFailed } = useAppSelector(
-    (store:DefaultRootState) => store.order
+    (store) => store.order
   );
 
   console.log(orderRequest);

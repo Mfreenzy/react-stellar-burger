@@ -4,7 +4,7 @@ import { FormContainerUser } from "../components/FormContainer/FormContainer";
 import { useAppDispatch, useAppSelector } from "../services/store";
 import { updateUser} from "../utils/api";
 import { getUser } from "../services/actions/userActions";
-import { Name, Email } from "../services/selectors/userSelector";
+import { selectName, selectEmail } from "../services/selectors/userSelector";
 import {
   addUser,
   addEmail,
@@ -18,13 +18,13 @@ import {
 
 export const ProfileInputFields = () => {
   const dispatch = useAppDispatch();
-  const nameValue = useAppSelector(Name);
-  const emailValue = useAppSelector(Email);
+  const nameValue = useAppSelector(selectName);
+  const emailValue = useAppSelector(selectEmail);
 
   function setValue() {
     dispatch(getUser());
-    dispatch(addEmail(emailValue));
-    dispatch(addUser(nameValue));
+    dispatch(addEmail(String(emailValue)));
+    dispatch(addUser(String(nameValue)));
     dispatch(addPassword(""));
   }
 
@@ -55,8 +55,8 @@ export const ProfileInputFields = () => {
     dispatch(getUser());
     if (isRedact) {
       dispatch(updateUser(emailInput, nameInput, passwordInput));
-      dispatch(addEmail(emailValue));
-      dispatch(addUser(nameValue));
+      dispatch(addEmail(String(emailValue)));
+      dispatch(addUser(String(nameValue)));
       dispatch(addPassword(""));
     }
   }

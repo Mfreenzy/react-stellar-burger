@@ -8,18 +8,17 @@ import { useAppSelector, useAppDispatch } from "../../../services/store";
 import { clearCurrentIngredients } from "../../../services/actions/currentIngredientsActions";
 import { resetOrder } from "../../../services/actions/orderAction";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../services/selectors/userSelector";
-import { DefaultRootState } from '../../../services/store';
+import { selectUser } from "../../../services/selectors/userSelector";
 import { TIngredient } from "../../../types/types";
 
 
 function BurgerFullPrice() {
   const ingredientsConstructor = useAppSelector(
-    (store : DefaultRootState) =>  store.currentIngredients
+    (store) =>  store.currentIngredients
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(User)
+  const user = useAppSelector(selectUser)
   const burgerInfill = ingredientsConstructor.other;
   const burgerBun = ingredientsConstructor.bun;
   const [fullPriceModal, setFullPriceModal] = useState(false);

@@ -35,7 +35,7 @@ const IngredientCards = () => {
     }
   };
 
-  const { ingredients } = useAppSelector((store:DefaultRootState) => store.allIngredients);
+  const { ingredients } = useAppSelector((store) => store.allIngredients);
   const filtered = (type:string) => {
     return ingredients.filter((item:TIngredient) => item.type === type);
   };

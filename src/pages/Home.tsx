@@ -9,7 +9,6 @@ import {
   addCurrentBun,
   addCurrentIngredient,
 } from "../services/actions/currentIngredientsActions";
-import { DefaultRootState } from "../services/store";
 import { TIngredient } from "../types/types";
 
 export function Home() {
@@ -24,7 +23,7 @@ export function Home() {
       };
     
       const { isLoading, ingredients, hasError } = useAppSelector(
-        (store:DefaultRootState) => store.allIngredients
+        (store) => store.allIngredients
       );
     
       if (isLoading) {

@@ -5,13 +5,11 @@ import { useAppDispatch, useAppSelector } from "../../../services/store";
 import update from "immutability-helper";
 import { moveFilling } from "../../../services/actions/currentIngredientsActions";
 import { TIngredient } from "../../../types/types";
-import { DefaultRootState } from '../../../services/store'
-import { BurgerConstTotalProps } from "../../../types/types";
 
 
-function BurgerConstTotal({ burgerInfill }: BurgerConstTotalProps) {
+function BurgerConstTotal() {
   const ingredientsConstructor = useAppSelector(
-    (store : DefaultRootState) => store.currentIngredients
+    (store) => store.currentIngredients
   );
   const other = ingredientsConstructor.other;
 

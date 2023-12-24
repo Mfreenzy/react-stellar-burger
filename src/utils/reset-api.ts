@@ -1,16 +1,11 @@
 import { POST_TOKEN_ENDPOINT } from "./BaseURL";
+import { checkResponse } from "./BaseURL";
 
 type authToken = {
   "success": boolean;
   "accessToken": string;
   "refreshToken": string;
 }
-
-const checkResponse = <T>(res: Response):Promise<T> => {
-    return res.ok
-      ? res.json()
-      : res.json().then((err) => Promise.reject(err));
-  };
 
 export const refreshToken = (): Promise<authToken> => {
     return fetch(POST_TOKEN_ENDPOINT, {

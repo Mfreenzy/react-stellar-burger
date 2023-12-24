@@ -4,13 +4,12 @@ import { useAppDispatch, useAppSelector } from "../../services/store";
 import { useLocation, Link } from "react-router-dom";
 import { connect, disconnect } from "../../services/actions/profileFeedAction";
 import Order from "../../components/Order/Order";
-import { DefaultRootState } from "../../services/store";
 
 function Orders() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { isLoading, error, orders } = useAppSelector(
-    (store:DefaultRootState) => store.profileFeed
+    (store) => store.profileFeed
   );
 
   const token = localStorage.getItem("accessToken");

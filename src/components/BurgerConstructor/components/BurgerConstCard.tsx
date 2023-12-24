@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "../../../services/store";
 import { removeCurrentIngredient } from "../../../services/actions/currentIngredientsActions";
 import { useDrag, useDrop } from "react-dnd";
 import { TIngredient } from "../../../types/types";
-import { DefaultRootState } from '../../../services/store'
 import { TFillingElement } from "../../../types/types";
 
 
@@ -20,7 +19,7 @@ export function BurgerConstCard({
   item,
 }: TFillingElement) {
   const ingredientsConstructor = useAppSelector(
-    (store:DefaultRootState) => store.currentIngredients
+    (store) => store.currentIngredients
   );
   const burgerInfill = ingredientsConstructor.other;
   const dispatch = useAppDispatch();

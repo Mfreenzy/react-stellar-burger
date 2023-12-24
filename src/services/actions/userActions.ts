@@ -31,41 +31,65 @@ export const setUser = (user:null | TUser):setUserAction => ({
   payload: user,
 });
 
-export const getUser = ():AppThunk<Promise<unknown>> => {
+export const getUser = (): AppThunk<Promise<unknown>> => {
   return (dispatch) => {
-    return tokens.getUser().then((res) => {
-      dispatch(setUser(res.user));
-    });
+    return tokens.getUser()
+      .then((res) => {
+        dispatch(setUser(res.user));
+      })
+      .catch((error) => {
+        // Handle the error, for example:
+        console.error("Error fetching user:", error);
+        // Optionally dispatch an error action
+        // dispatch(userFetchError(error));
+      });
   };
 };
 
-export const login = (email:string, pass:string):AppThunk<Promise<unknown>> => {
+export const login = (email: string, pass: string): AppThunk<Promise<unknown>> => {
   return (dispatch) => {
-    return tokens.login(email, pass).then((res) => {
-      localStorage.setItem("accessToken", res.accessToken);
-      localStorage.setItem("refreshToken", res.refreshToken);
-      dispatch(setUser(res.user));
-      dispatch(setAuthChecked(true));
-    });
+    return tokens.login(email, pass)
+      .then((res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        dispatch(setUser(res.user));
+        dispatch(setAuthChecked(true));
+      })
+      .catch((error) => {
+        // Обработка ошибки
+        console.error("Error:", error);
+        // Дополнительные действия при возникновении ошибки
+      });
   };
 };
 
-export const logout = ():AppThunk<Promise<unknown>> => {
+export const logout = (): AppThunk<Promise<unknown>> => {
   return (dispatch) => {
-    return tokens.logout().then(() => {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      dispatch(setUser(null));
-    });
+    return tokens.logout()
+      .then(() => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        dispatch(setUser(null));
+      })
+      .catch((error) => {
+        // Обработка ошибки
+        console.error("Error:", error);
+        // Дополнительные действия при возникновении ошибки
+      });
   };
 };
 
 
-export const checkUserAuth = ():AppThunk => {
+export const checkUserAuth = (): AppThunk => {
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
-        .catch(() => {
+        .then(() => {
+          // handle successful getUser() dispatch
+        })
+        .catch((error) => {
+          // handle error from getUser() dispatch
+          console.error("Error fetching user:", error);
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
           dispatch(setUser(null));

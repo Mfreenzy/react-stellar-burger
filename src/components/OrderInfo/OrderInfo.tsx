@@ -1,7 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../services/store";
 import { getCurrentOrder } from "../../services/actions/currentOrderActions";
-import { v4 as uuidv4 } from "uuid";
 import { useEffect, useMemo } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -63,8 +62,8 @@ export default function OrderInfo() {
 
   const orderIngredients = useMemo(
     () =>
-      order?.ingredients.map((ingredientId:string) =>
-        ingredients?.find((ingredient:TIngredient) => ingredientId === ingredient._id)
+      order?.ingredients.map((ingredientId) =>
+        ingredients?.find((ingredient) => ingredientId === ingredient._id)
       ),
     [order?.ingredients, ingredients]
   );
@@ -72,8 +71,8 @@ export default function OrderInfo() {
   console.log("orderIngredients", orderIngredients);
 
   const multiply = (ingredient:TIngredient) => {
-    let res = orderIngredients?.filter((item: TIngredient) => item._id === ingredient._id) || [];
-    return res.length;
+    let res = orderIngredients?.filter((item) => item?._id === ingredient._id) || [];
+  return res.length;
   };
 
   const uniqueElements = (arr: TIngredient[] | undefined) => {
@@ -83,10 +82,10 @@ export default function OrderInfo() {
     return [];
   };
 
-  const uniqueIngredients = uniqueElements(orderIngredients);
+  const uniqueIngredients = uniqueElements(orderIngredients as TIngredient[]);
 
   const orderPrice = useMemo(
-    () => orderIngredients?.reduce((acc:number, i:TIngredient) => acc + i.price, 0),
+    () => orderIngredients ? orderIngredients.reduce((acc:number, i?:TIngredient) => i ? acc + i.price : acc, 0) : 0,
     [orderIngredients]
   );
 
@@ -122,8 +121,8 @@ export default function OrderInfo() {
       )}
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={`${styles.OrderInfoCards} custom-scroll`}>
-        {uniqueIngredients?.map((ingredient:TIngredient) => (
-          <div className={styles.OrderInfoCard} key={uuidv4()}>
+        {uniqueIngredients?.map((ingredient) => (
+          <div className={styles.OrderInfoCard} key={ingredient._id}>
             <div className={styles.OrderInfoCardinfo}>
               <div className={styles.OrderInfoImgbox}>
                 <img
