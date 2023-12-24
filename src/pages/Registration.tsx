@@ -7,6 +7,7 @@ import {
   selectedPassword,
   selectedUserName,
 } from "../services/selectors/inputsSelectors";
+import {login } from "../services/actions/userActions";
 import { tRegister } from "../utils/api";
 
 export function Reg() {
@@ -17,6 +18,7 @@ export function Reg() {
 
   function onClick() {
     dispatch(tRegister(name, pass, email));
+    // dispatch(login(email, pass));
   }
 
   const registerFormHeader = "Регистрация";
