@@ -51,7 +51,7 @@ export const getCurrentOrder = (number:number):AppThunk => {
         authorization: accessToken!,
       },
     })
-      .then((res) => checkResponse(res))
+      .then(checkResponse<TOrder>)
       .then((res) => {
         dispatch(setCurrent(res));
       })

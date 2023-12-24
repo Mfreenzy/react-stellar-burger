@@ -24,8 +24,8 @@ function BurgerConstTotal({ burgerInfill }: BurgerConstTotalProps) {
       ],
     });
 
-    dispatch(moveFilling(newOther));
-  }, []);
+    dispatch(moveFilling(dragIndex, hoverIndex));
+  }, [dispatch]);
 
   return (
     <ul className={`${styles.burgerConstTotal} custom-scroll`}>

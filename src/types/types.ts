@@ -32,7 +32,7 @@ export type TFillingElement = {
   moveCard: (
     dragIndex: number,
     hoverIndex: number,
-    burgerInfill: boolean
+    burgerInfill: TIngredient[]
   ) => void;
 };
 
@@ -106,4 +106,15 @@ export type NavigateButtonProps = {
 export type TUser = {
   email: string;
   name: string;
+};
+
+export interface OrderResponse {
+  order: {
+    number: number;
+  };
+}
+
+export type TData = {
+    success: boolean;
+    data: TIngredient[];
 };

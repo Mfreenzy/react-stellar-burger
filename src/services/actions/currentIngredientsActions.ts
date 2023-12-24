@@ -27,7 +27,7 @@ export type ClearCurrentIngredientsAction = {
 
 export type MoveFillingAction = {
   type: typeof MOVE_FILLING;
-  payload: TIngredient;
+  payload: { dragIndex: number, hoverIndex: number };
 };
 
 
@@ -67,6 +67,6 @@ export const clearCurrentIngredients = (): ClearCurrentIngredientsAction => {
   };
 };
 
-export function moveFilling(ingredient:TIngredient):MoveFillingAction {
-  return {type: MOVE_FILLING, payload: ingredient}
+export function moveFilling(dragIndex: number, hoverIndex: number):MoveFillingAction {
+  return {type: MOVE_FILLING, payload: { dragIndex, hoverIndex }}
 }

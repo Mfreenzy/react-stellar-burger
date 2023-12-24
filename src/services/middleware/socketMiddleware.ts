@@ -1,8 +1,10 @@
 import { checkUserAuth } from "../actions/userActions";
+import { Middleware, MiddlewareAPI } from "redux";
+import { TwsActions } from "../../types/thunk";
 
-export const socketMiddleware = (wsActions) => {
-    return store => {
-        let socket = null;
+export const socketMiddleware = (wsActions:TwsActions):Middleware => {
+    return (store:MiddlewareAPI) => {
+        let socket: WebSocket | null = null;
         let isConnected = false;
         let reconnectTimer = 0;
 

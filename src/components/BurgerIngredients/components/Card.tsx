@@ -52,7 +52,7 @@ function Card({ item, onClick }: TCardElement) {
     else {
       // в переменную счетчик ставим длинну массива отфильтрованного по id текущего элемента.
       count = ingredientsConstructor.other.filter(
-        (ingredient:TCardElement) => ingredient._id === item._id
+        (ingredient:TIngredient) => ingredient._id === item._id
       ).length;
     }
     // возвращаем найденный счетчик

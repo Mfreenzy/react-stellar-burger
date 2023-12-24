@@ -1,4 +1,5 @@
 import { AppThunk } from "../../types/thunk";
+import { OrderResponse } from "../../types/types";
 import { POST_ORDERS_ENDPOINT } from "../../utils/BaseURL";
 import { checkResponse } from "../../utils/BaseURL";
 
@@ -58,7 +59,7 @@ export function resetOrder():resetOrderAction {
 }
 
 
-export const getBurgerOrder = (data:number[]):AppThunk => {
+export const getBurgerOrder = (data:string[]):AppThunk => {
   console.log(data);
   return (dispatch) => {
     const accessToken: string | null = localStorage.getItem("accessToken");
@@ -71,7 +72,7 @@ export const getBurgerOrder = (data:number[]):AppThunk => {
       },
       body: JSON.stringify({ ingredients: data }),
     })
-      .then((res) => checkResponse(res))
+      .then(checkResponse<OrderResponse>)
       .then((data) => {
         const orderNumber = data.order.number; // Получаем только номер заказа
         console.log(orderNumber)

@@ -10,7 +10,6 @@ export function Log() {
     const dispatch = useDispatch()
     const email = useSelector(selectedEmail);
     const pass = useSelector(selectedPassword);
-
     
     function onClick() {
       dispatch(login(email, pass))

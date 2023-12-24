@@ -10,7 +10,7 @@ import { resetOrder } from "../../../services/actions/orderAction";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../services/selectors/userSelector";
 import { DefaultRootState } from '../../../services/store';
-import { TFullPriceElement } from "../../../types/types";
+import { TIngredient } from "../../../types/types";
 
 
 function BurgerFullPrice() {
@@ -37,7 +37,7 @@ function BurgerFullPrice() {
   const priceOfBurger = useMemo(() => {
     const priceOfBun = burgerBun?.price || 0;
     const priceOfFilling = burgerInfill.reduce(
-      (acc: number, item: TFullPriceElement) => acc + item.price,
+      (acc: number, item: TIngredient) => acc + item.price,
       0
     );
 

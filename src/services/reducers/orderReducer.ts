@@ -3,15 +3,22 @@ import {
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,
   RESET_ORDER,
+  TOrderActions,
 } from "../actions/orderAction";
 
-const initialState = {
+type TOrderState = {
+  orderNumber: number | null,
+  orderRequest: boolean,
+  orderFailed: boolean,
+}
+
+const initialState:TOrderState = {
   orderNumber: null,
   orderRequest: false,
   orderFailed: false,
 };
 
-const orderReducer = (state = initialState, action) => {
+const orderReducer = (state = initialState, action:TOrderActions):TOrderState => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {
@@ -28,7 +35,7 @@ const orderReducer = (state = initialState, action) => {
       };
     }
     case POST_ORDER_FAILURE: {
-      return { ...state, orderFailed: true, orderNumber: false };
+      return { ...state, orderFailed: true, orderNumber: null };
     }
     case RESET_ORDER: {
       return initialState;

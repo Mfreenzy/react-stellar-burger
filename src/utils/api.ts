@@ -5,6 +5,7 @@ import { POST_RESET_ENDPOINT } from "./BaseURL";
 import { setUser } from "../services/actions/userActions";
 import { fetchWithRefresh } from "./reset-api";
 import { AppThunk } from "../types/thunk";
+import { TRegistration } from "../types/token";
 
 export const Register = (name:string, pass:string, email:string) => {
   return fetch(POST_REGISTER_ENDPOINT, {
@@ -18,7 +19,7 @@ export const Register = (name:string, pass:string, email:string) => {
       name: name,
     }),
   })
-    .then((res) => checkResponse(res))
+    .then(checkResponse<TRegistration>)
     .then((res) => {
       // Сохраняем accessToken и refreshToken в localStorage
       localStorage.setItem("accessToken", res.accessToken);

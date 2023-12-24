@@ -1,16 +1,25 @@
+import { TIngredient } from "../../types/types";
 import {
   FETCH_INGREDIENTS_REQUEST,
   FETCH_INGREDIENTS_SUCCESS,
   FETCH_INGREDIENTS_FAILURE,
+  TIngredientActions,
 } from "../actions/ingredientActions";
 
-const initialState = {
+type TIngredientState = {
+  ingredients:TIngredient[];
+  isLoading: boolean;
+  hasError:boolean;
+}
+
+
+const initialState:TIngredientState = {
   ingredients: [],
   isLoading: false,
   hasError: false,
 };
 
-export const ingredientReducer = (state = initialState, action) => {
+export const ingredientReducer = (state = initialState, action:TIngredientActions) => {
   switch (action.type) {
     case FETCH_INGREDIENTS_REQUEST: {
       return {

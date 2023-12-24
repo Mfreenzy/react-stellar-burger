@@ -39,7 +39,7 @@ export const getUser = ():AppThunk<Promise<unknown>> => {
   };
 };
 
-export const login = (email:string, pass:string):AppThunk => {
+export const login = (email:string, pass:string):AppThunk<Promise<unknown>> => {
   return (dispatch) => {
     return tokens.login(email, pass).then((res) => {
       localStorage.setItem("accessToken", res.accessToken);
@@ -50,7 +50,7 @@ export const login = (email:string, pass:string):AppThunk => {
   };
 };
 
-export const logout = ():AppThunk => {
+export const logout = ():AppThunk<Promise<unknown>> => {
   return (dispatch) => {
     return tokens.logout().then(() => {
       localStorage.removeItem("accessToken");

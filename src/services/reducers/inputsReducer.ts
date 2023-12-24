@@ -3,10 +3,19 @@ import {
   PASSWORD,
   EMAIL,
   NEW_PASSWORD,
-  TOKEN
+  TOKEN,
+  TIputsActions
 } from "../actions/inputsActions";
 
-const initialState = {
+type TInputState = {
+  userName: string,
+  password: string,
+  email: string,
+  token: string,
+  newPassword: string
+}
+
+const initialState:TInputState = {
   userName: "",
   password: "",
   email: "",
@@ -14,7 +23,7 @@ const initialState = {
   newPassword: ""
 };
 
-export function inputsReducer(state = initialState, action) {
+export function inputsReducer(state = initialState, action:TIputsActions):TInputState {
   switch (action.type) {
     case USER_NAME:
       return {

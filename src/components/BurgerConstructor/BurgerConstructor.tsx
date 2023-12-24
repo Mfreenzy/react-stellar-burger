@@ -27,7 +27,7 @@ const BurgerConstructor = ({onDropHandler}:BurgerConstructorProps) => {
   if (burgerBun) {
     nameBun = burgerBun.name;
     imageBun = burgerBun.image;
-    priceBun = burgerBun.price;
+    priceBun = String(burgerBun.price);
   }
 
   const priceBunNum: number = parseFloat(priceBun);

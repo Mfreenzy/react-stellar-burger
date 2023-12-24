@@ -1,5 +1,5 @@
 import { AppThunk } from "../../types/thunk";
-import { TIngredient } from "../../types/types";
+import { TData, TIngredient } from "../../types/types";
 import { GET_INGREDIENTS_ENDPOINT } from "../../utils/BaseURL";
 import { checkResponse } from "../../utils/BaseURL";
 
@@ -50,9 +50,9 @@ export const getBurgerIngredients = ():AppThunk => {
   return (dispatch) => {
     dispatch(fetchIngredientsRequest());
     fetch(GET_INGREDIENTS_ENDPOINT)
-      .then((res) => checkResponse(res))
+      .then(checkResponse<TData>)
       .then((data) => {
-        console.log(data);
+        console.log({data});
         dispatch(fetchIngredientsSuccess(data.data));
       })
       .catch(() => {

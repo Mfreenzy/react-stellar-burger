@@ -40,21 +40,9 @@ const IngredientCards = () => {
     return ingredients.filter((item:TIngredient) => item.type === type);
   };
 
-  const [filteredIngredients, setFilteredIngredients] = React.useState({
-    buns: [],
-    sauces: [],
-    mains: [],
-  });
-
-  React.useMemo(
-    () =>
-      setFilteredIngredients({
-        buns: filtered("bun"),
-        sauces: filtered("sauce"),
-        mains: filtered("main"),
-      }),
-    [ingredients]
-  );
+  const buns = React.useMemo(() => ingredients?.filter(x => x.type === "bun"), [ingredients]) || [];
+  const mains = React.useMemo(() => ingredients?.filter(x => x.type === "main"), [ingredients]) || [];
+  const sauces = React.useMemo(() => ingredients?.filter(x => x.type === "sauce"), [ingredients]) || [];
 
   const [currentTab, setCurrentTab] = React.useState("buns");
   const tabsRef = useRef<HTMLParagraphElement>(null);
@@ -110,7 +98,7 @@ const IngredientCards = () => {
         <div className={`${styles.cardContainer}`}>
           <h2 className={`text text_type_main-medium pb-6`}>Булочки</h2>
           <CardList
-            data={filteredIngredients.buns}
+            data={buns}
             ref={bunsRef}
             id="buns"
             handleOpenModal={handleOpenModal}
@@ -119,7 +107,7 @@ const IngredientCards = () => {
         <div className={`${styles.cardContainer}`}>
           <h2 className={`text text_type_main-medium pt-10 pb-6`}>Соусы</h2>
           <CardList
-            data={filteredIngredients.sauces}
+            data={sauces}
             ref={saucesRef}
             id="sauces"
             handleOpenModal={handleOpenModal}
@@ -128,7 +116,7 @@ const IngredientCards = () => {
         <div className={`${styles.cardContainer}`}>
           <h2 className={`text text_type_main-medium pt-10 pb-6`}>Начинки</h2>
           <CardList
-            data={filteredIngredients.mains}
+            data={mains}
             ref={mainsRef}
             id="main"
             handleOpenModal={handleOpenModal}

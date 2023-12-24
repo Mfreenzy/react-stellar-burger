@@ -1,3 +1,4 @@
+import { TGetUser, TRegistration } from "../types/token";
 import {
   PROFILE_ENDPOINT,
   POST_LOGIN_ENDPOINT,
@@ -9,23 +10,24 @@ import { fetchWithRefresh } from "./reset-api";
 // В проектной работе эта функция будет обращаться к серверу
 // и обновлять токены если они уже устарели.
 const getUser = () => {
+  const accessToken: string | null = localStorage.getItem("accessToken");
   return fetch(PROFILE_ENDPOINT, { 
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: localStorage.getItem("accessToken"),
+      authorization: accessToken!,
     },
-  }).then((res) => checkResponse(res));
+  }).then(checkResponse<TGetUser>);
 };
 
-const login = (email, pass) => {
+const login = (email:string, pass:string): Promise<TRegistration> => {
   return fetch(POST_LOGIN_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email: email, password: pass }),
-  }).then((res) => checkResponse(res));
+  }).then(checkResponse<TRegistration>);
 };
 
 const logout = () => {

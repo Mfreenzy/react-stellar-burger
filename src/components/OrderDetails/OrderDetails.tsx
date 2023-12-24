@@ -24,7 +24,8 @@ const OrderDetails = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getBurgerOrder(componentsID));
+    const definedComponentsID = componentsID.filter((id): id is string => typeof id === "string");
+    dispatch(getBurgerOrder(definedComponentsID));
   }, [dispatch]);
 
   const { orderNumber, orderRequest, orderFailed } = useSelector(

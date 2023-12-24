@@ -1,13 +1,19 @@
+import { TIngredient } from "../../types/types";
 import {
   SET_INGREDIENT_DETAILS,
   CLEAR_INGREDIENT_DETAILS,
+  TCurrentIngredientActions,
 } from "../actions/currentIngredientActions";
 
-const initialState = {
+type TIngredientDetailState = {
+  details : null | TIngredient
+}
+
+const initialState: TIngredientDetailState = {
   details: null,
 };
 
-function ingredientDetailsReducer(state = initialState, action) {
+const ingredientDetailsReducer = (state = initialState, action: TCurrentIngredientActions):TIngredientDetailState => {
   switch (action.type) {
     case SET_INGREDIENT_DETAILS:
       return {

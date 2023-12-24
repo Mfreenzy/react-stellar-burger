@@ -19,11 +19,14 @@ import { useDispatch } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/ingredientActions";
 import { checkUserAuth } from "../../services/actions/userActions";
 
+
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
+  const token = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
 
   const handleModalClose = () => {
     navigate(-1);
@@ -32,7 +35,7 @@ function App() {
   React.useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuth())
-  }, [dispatch]);
+  }, [dispatch, token, refreshToken]);
 
   return (
     <div className={styles.app}>

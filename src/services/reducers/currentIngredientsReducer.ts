@@ -1,14 +1,24 @@
+import { TIngredient } from "../../types/types";
 import {
   ADD_CURRENT_BUN,
   ADD_CURRENT_INGREDIENT,
   REMOVE_CURRENT_INGREDIENT,
   CLEAR_CURRENT_INGREDIENTS,
   MOVE_FILLING,
+  TCurrentIngredientsActions,
 } from "../actions/currentIngredientsActions";
 
-const initialState = { bun: null, other: [] };
+type TConstructorState = {
+  bun: TIngredient | null;
+  other: TIngredient[];
+};
 
-const currentIngredientsReducer = (state = initialState, action) => {
+const initialState: TConstructorState = { bun: null, other: [] };
+
+const currentIngredientsReducer = (
+  state = initialState,
+  action: TCurrentIngredientsActions
+): TConstructorState => {
   switch (action.type) {
     case ADD_CURRENT_BUN:
       return {
@@ -34,11 +44,19 @@ const currentIngredientsReducer = (state = initialState, action) => {
         bun: null,
         other: [],
       };
-    case MOVE_FILLING:
+    case MOVE_FILLING: {
+      const canDragIngredients = [...state.other];
+      canDragIngredients.splice(
+        action.payload.dragIndex,
+        0,
+        canDragIngredients.splice(action.payload.hoverIndex, 1)[0]
+      );
+
       return {
         ...state,
-        other: action.payload,
+        other: canDragIngredients,
       };
+    }
     default:
       return state;
   }

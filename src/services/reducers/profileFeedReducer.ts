@@ -3,10 +3,22 @@ import {
     PROFILEFEED_ORDERS_WS_ERROR,
     PROFILEFEED_ORDERS_WS_OPEN,
     PROFILEFEED_ORDERS_WS_CLOSE,
-    PROFILEFEED_ORDERS_WS_GET_FEED
+    PROFILEFEED_ORDERS_WS_GET_FEED,
+    TProfileFeedActions
 } from "../actions/profileFeedAction"
+import { TOrder } from "../../types/types";
 
-const initialProfileFeedState = {
+type TProfileFeedState = {
+    isLoading: boolean;
+    feedCheckConnected: boolean;
+    error: null | string;
+    orders: TOrder[] | [];
+    total: number | null;
+    totalToday: number | null;
+}
+
+
+const initialProfileFeedState:TProfileFeedState = {
     isLoading: false,
     feedCheckConnected: false,
     error: null,
@@ -15,12 +27,13 @@ const initialProfileFeedState = {
     totalToday: null
 }
 
-export const profileFeedReducer = (state = initialProfileFeedState, action) => {
+export const profileFeedReducer = (state = initialProfileFeedState, action:TProfileFeedActions):TProfileFeedState => {
     switch (action.type) {
         case PROFILEFEED_ORDERS_WS_CONNECTING:
             return {
                 ...state,
                 isLoading: true,
+                error: action.payload,
             };
         case PROFILEFEED_ORDERS_WS_OPEN:
             return {

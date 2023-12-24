@@ -39,8 +39,8 @@ export default function OrderInfo() {
         return order;
       }
     }
-    if (store.currentOrder && store.currentOrder.number && store.currentOrder.number.orders) {
-        order = store.currentOrder.number.orders.find((order:TOrder) => order.number === +number)
+    if (store.currentOrder && store.currentOrder.number && store.currentOrder.orders) {
+        order = store.currentOrder.orders.find((order:TOrder) => order.number === +number)
         if (order) {
             return order
         }
@@ -72,12 +72,16 @@ export default function OrderInfo() {
   console.log("orderIngredients", orderIngredients);
 
   const multiply = (ingredient:TIngredient) => {
-    let res = orderIngredients?.filter((item:TIngredient) => item._id === ingredient._id);
+    let res = orderIngredients?.filter((item: TIngredient) => item._id === ingredient._id) || [];
     return res.length;
   };
 
-  const uniqueElements = (arr:TIngredient[]) =>
-    arr?.filter((element, index:number) => index === arr.indexOf(element));
+  const uniqueElements = (arr: TIngredient[] | undefined) => {
+    if (arr) {
+      return arr.filter((element, index) => index === arr.indexOf(element));
+    }
+    return [];
+  };
 
   const uniqueIngredients = uniqueElements(orderIngredients);
 

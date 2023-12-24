@@ -14,7 +14,7 @@ export const PROFILE_ENDPOINT =`${BASE_URL}/auth/user`
 
 
 //функция checkResponse
-export function checkResponse(res) {
+export function checkResponse <T>(res: Response): Promise<T> {
   if (res.ok) {
     return res.json();
   } else {
