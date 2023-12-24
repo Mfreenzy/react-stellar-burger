@@ -45,7 +45,7 @@ export const Links = {
 
 //Большая кнопка
 export const navigateButton = ({onClick, label}: NavigateButtonProps) => {
-    return <Button htmlType="submit" type="primary" size="medium" children={label} onClick={onClick}/>
+    return <Button htmlType="button" type="primary" size="medium" children={label} onClick={onClick}/>
   }
 
 //Другие кнопки

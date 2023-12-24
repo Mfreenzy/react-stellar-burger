@@ -6,6 +6,7 @@ import { setUser } from "../services/actions/userActions";
 import { fetchWithRefresh } from "./reset-api";
 import { AppThunk } from "../types/thunk";
 import { TRegistration } from "../types/token";
+import { TResUser } from "../types/types";
 
 export const Register = (name:string, pass:string, email:string) => {
   return fetch(POST_REGISTER_ENDPOINT, {
@@ -81,13 +82,14 @@ export function postApiReset(newPassword:string, token:string) {
 
 //6. Обновление данных пользователя.
 
-export const updateUser = (email:string, name:string, password:string):AppThunk => {
+export const updateUser = (email:string, name:string, password:string):AppThunk<Promise<unknown>> => {
   return (dispatch) => {
-    return fetchWithRefresh(PROFILE_ENDPOINT, {
+    const accessToken: string | null = localStorage.getItem("accessToken");
+    return fetchWithRefresh<TResUser>(PROFILE_ENDPOINT, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("accessToken"),
+        authorization: accessToken!,
       },
       body: JSON.stringify({
         email,
@@ -100,3 +102,4 @@ export const updateUser = (email:string, name:string, password:string):AppThunk 
     });
   };
 };
+

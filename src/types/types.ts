@@ -118,3 +118,8 @@ export type TData = {
     success: boolean;
     data: TIngredient[];
 };
+
+export type TResUser = {
+  success: boolean,
+  user: TUser
+}

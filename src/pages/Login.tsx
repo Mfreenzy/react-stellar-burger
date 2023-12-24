@@ -6,12 +6,16 @@ import { useAppSelector, useAppDispatch } from "../services/store";
 import { login } from "../services/actions/userActions";
 
 
+
 export function Log() {
     const dispatch = useAppDispatch()
     const email = useAppSelector(selectedEmail);
     const pass = useAppSelector(selectedPassword);
     
     function onClick() {
+      console.log("onClick", email);
+      console.log("ocClick", pass);
+      
       dispatch(login(email, pass))
     }
   

@@ -40,6 +40,10 @@ export const getUser = ():AppThunk<Promise<unknown>> => {
 };
 
 export const login = (email:string, pass:string):AppThunk<Promise<unknown>> => {
+  console.log({email});
+  console.log({pass});
+  console.log({tokens});
+
   return (dispatch) => {
     return tokens.login(email, pass).then((res) => {
       localStorage.setItem("accessToken", res.accessToken);

@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "../FormContainer/FormContainer.module.css";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Inputs } from "../../utils/InputsAndLinks/IAL";
-import { Links } from "../../utils/InputsAndLinks/IAL";
+
 
 interface FormContainerProps {
   header?: string;
