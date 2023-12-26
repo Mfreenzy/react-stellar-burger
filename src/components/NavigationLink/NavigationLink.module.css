@@ -3,8 +3,14 @@
     display: flex;
     flex-direction: row;
     color: inherit;
+    
 }
 
-.label {
+.text {
     white-space: nowrap;
+    padding-left: 8px;
+}
+
+.active {
+    color:inherit;
 }
